@@ -1,0 +1,19 @@
+<%= erb :'partial/head' %>
+      
+      <% if @output == 'ok' %>
+        <p>Quote sent.</p>
+      <% elsif @output == 'fail' %>
+        <p>Error sending the quote: <%= @errors.first.first %></p>
+      <% elsif @output == 'duplicate' %>
+        <p>Error sending the quote: Username not available.</p>
+      <% else %>
+        <form action="" method="post">
+          <input type="text" name="source" placeholder="source" /><br />
+          <input type="text" name="tags" placeholder="tag1, tag2, tag3" title="Divide each tag by a comma (,)." /><br />
+          <textarea name="quote" cols="65" rows="10"></textarea><br />
+          <input type="submit" value="Send" />
+          <%= csrf_tag %>
+        </form>
+      <% end %>
+        
+<%= erb :'partial/foot' %>

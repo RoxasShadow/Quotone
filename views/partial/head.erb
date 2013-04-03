@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <title><% if @title %><%= @title %> | <% end %>Quotone</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="<%= @domain %>/css/style.css" />
+    <% if @current_page == ?/ %><meta name="description" content="The place where you can share anonymously your favorite quotes from anime, manga, videogames, books, etc." /><% end %>
+    <meta name="robots" content="index,follow" />
+  </head>
+  
+  <body>
+    <div id="body">
+      <div id="logo"></div>
+      <div id="contents" class="header">
+      <nav>
+        <% if @current_page != ?/ %><a href="<%= @domain %>">Index</a><% end %>
+        <% if @current_page != ?/ && @current_page != '/new' %>&#8226;<% end %>
+        <% if @current_page != '/new' %><a href="<%= @domain %>/new">New</a><% end %>
+      </nav>

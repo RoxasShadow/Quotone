@@ -1,0 +1,46 @@
+<%= erb :'partial/head' %>
+      
+        <% if @quotes.any? %>
+          <% @quotes.each_with_index { |quote, i| %>
+            <% if i <= 5 %>
+              <section>
+                <header>
+                  <p>
+                    <img alt="Language: <%= quote.language %>" src="http://www.residenzaleduetorri.it/images/flag_<%= quote.language %>.gif" width="12" height="12" /> 
+                    From <a href="<%= @domain %>/source/<%= quote.source %>"><%= quote.source %></a> posted <%= quote.created_at.strftime(fmt='the %D at %R') %> (#<a href="<%= @domain %>/get/<%= quote.id %>"><%= quote.id %></a>)<br />
+                    <img alt="Spacer" src="<%= @domain %>/images/spacer.gif" width="12" height="12" /> 
+                    Tags: <i>
+                    <% quote.tags.split(?,).each { |tag,| %>
+                      <a href="<%= @domain %>/tag/<%= tag %>"><%= tag %></a>
+                    <% } %>
+                    </i>
+                  </p>
+                </header>
+                <hr />
+                <article>
+                  <p><%= quote.quote %></p>
+                </article>
+                <footer>
+                  <iframe src="//www.facebook.com/plugins/like.php?href=<%= @domain %>/get/<%= quote.id %>%2F&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;font=arial&amp;colorscheme=dark&amp;action=like&amp;height=19" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:19px;" allowTransparency="true"></iframe>
+                  
+                  <div class="g-plusone" data-size="medium" data-annotation="none" data-href="<%= @domain %>/get/<%= quote.id %>"></div>
+                  
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= @domain %>/get/<%= quote.id %>" data-text="<%= quote.quote.gsub('&#34;', ?")[0..(120-"#{@domain}/get/quote.id".length)] %>... | <%= @domain %>/get/<%= quote.id %>" data-lang="<%= @language %>" data-hashtags="quotone">Tweet</a>
+                </footer>
+              </section>
+            <% end %>
+          <% } %>
+        <% else %>
+          <p>No quotes found.</p>
+        <% end %>
+        
+        <% if @previous || @next %>
+          <div id="pagination">
+              <p>
+                <% if @previous%><a href="<%= @domain %>/<%= @page - 1 %>">Previous</a><% end %>
+                <% if @next %><a href="<%= @domain %>/<%= @page + 1 %>">Next</a><% end %>
+              </p>
+          </div>
+        <% end %>
+        
+<%= erb :'partial/foot' %>
