@@ -9,5 +9,5 @@ gem 'therubyracer'
 gem 'html_press'
 
 gem 'data_mapper'
-gem 'dm-sqlite-adapter'
+gem 'dm-mysql-adapter'
 gem 'dm-pager'

@@ -21,16 +21,15 @@ require 'sinatra/base'
 require 'rack/csrf'
 require 'html_press'
 require 'data_mapper'
-require 'dm-sqlite-adapter'
+require 'dm-mysql-adapter'
 require 'dm-pager'
 require 'digest/md5'
 
 class Quotone < Sinatra::Base
   enable :sessions
-  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/database.db")
-   
-  #db = YAML::load File.read('config/db.yml')
-  #DataMapper.setup(:default, "mysql://#{db['username']}:#{db['password']}@#{db['hostname']}/#{db['database']}")
+  
+  db = YAML::load File.read('config/db.yml')
+  DataMapper.setup(:default, "mysql://#{db['username']}:#{db['password']}@#{db['hostname']}/#{db['database']}")
   
   configure {
     set :method_override, true
