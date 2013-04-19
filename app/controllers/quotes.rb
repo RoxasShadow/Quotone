@@ -49,5 +49,17 @@ class Quotone
     
     HtmlPress.press(erb :'new')
   end
+	
+  get '/vote/:id' do |id|
+    quote = Quote.get(id.to_i)
+    if quote.quotes
+      quote.quotes << Vote.create(:ip => @ip)
+    else
+      quote.quotes = Vote.create(:ip => @ip)
+    end
+    quote.save
+    
+    redirect back
+  end
   
 end

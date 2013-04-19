@@ -17,26 +17,14 @@
 # along with Quotone.  If not, see <http://www.gnu.org/licenses/>.
 #++
 
-class Quote
+class Vote
   include DataMapper::Resource
 
   property	:id,          Serial
   property  :ip,          String, :required => true
-  property	:source,      String, :required => true
-  property	:tags,        String
-  property  :language,    String, :required => true
-  property	:quote,       Text,   :required => true
   property	:created_at,  DateTime
   property	:updated_at,  DateTime
-  has n, :votes
-  
-  before :save, :purge
-  
-  def purge
-  	self.source = Rack::Utils.escape_html self.source
-  	self.tags   = Rack::Utils.escape_html self.tags
-  	self.quote  = Rack::Utils.escape_html self.quote
-  end
+  belongs_to :quote
   
   protected
   def method_missing(m, *args)

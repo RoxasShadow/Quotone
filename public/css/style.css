@@ -40,16 +40,17 @@ body {
   border-radius: 15px 15px 15px 15px;
   position: absolute;
   top: 50%;
-  margin-top: -424px;
+  margin-top: -400px;
 }
 
 #logo {
   background-image: url('../images/logo.png');
-  width: 326px;
-  height: 58px;
+  width: 397px;
+  height: 76px;
   position: absolute;
   top: 50%;
-  margin-top: -470px;
+  margin-top: -480px;
+  text-align:center;
 }
 
 .header {
