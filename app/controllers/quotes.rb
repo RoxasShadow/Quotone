@@ -22,7 +22,7 @@ class Quotone
   get '/new' do
     @title = 'New quote'
     
-    HtmlPress.press(erb :new)
+    erb :new
   end
   
   post '/new' do
@@ -47,16 +47,19 @@ class Quotone
     @output = quote.save ? 'ok' : 'fail'
     @errors = quote.errors
     
-    HtmlPress.press(erb :new)
+    erb :new
   end
-	
+  
   get '/vote/:id' do |id|
-    quote = Quote.get(id.to_i)
-    quote.votes << Vote.new(:ip => @ip)
+    unless quote = Quote.get(id.to_i)
+      redirect "#{@domain}/get/#{id}"
+    end
     
-    @output = quote.save ? 'ok' : 'fail'
-    @errors = quote.errors
+    if Vote.count(:quote_id => quote.id, :ip => @ip) > 0
+      redirect "#{@domain}/get/#{id}"
+    end
     
+    quote.votes.create(:ip => @ip)
     redirect back
   end
   

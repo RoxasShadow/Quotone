@@ -33,8 +33,7 @@ class Quotone
     @quotes   = Quote.all.page(@page, :per_page => 5)
     @previous = @page > 1
     @next     = @page <= (Quote.all.length / 5)
-    
-    HtmlPress.press(erb :index)
+    erb :index
   end
 	
   get '/source/:source/?:page?' do |source, page|
@@ -44,7 +43,7 @@ class Quotone
     @next     = @page <= (Quote.all(:source => source).length / 5)
     @title    = source
     
-    HtmlPress.press(erb :index)
+    erb :index
   end
 	
   get '/tag/:tag/?:page?' do |tag, page|
@@ -54,24 +53,24 @@ class Quotone
     @next     = @page <= (Quote.all(:tags.like => "%#{tag}%").length / 5)
     @title    = 'Tag: ' + tag
     
-    HtmlPress.press(erb :index)
+    erb :index
   end
 	
   get '/get/:id' do |id|
     @quotes = [ Quote.get(id.to_i) ]
     @title  = 'Quote #' + id
     
-    HtmlPress.press(erb :index)
+    erb :index
   end
    
   not_found do
     @error = 'Content not found.'
-    HtmlPress.press(erb :error)
+    erb :error
   end
 
   error do
     @error = env['sinatra.error']
-    HtmlPress.press(erb :error)
+    erb :error
   end
 
 end

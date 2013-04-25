@@ -19,7 +19,6 @@
 
 require 'sinatra/base'
 require 'rack/csrf'
-require 'html_press'
 require 'data_mapper'
 require 'dm-mysql-adapter'
 require 'dm-pager'
