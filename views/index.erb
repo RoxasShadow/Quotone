@@ -10,7 +10,7 @@
                     From <a href="<%= @domain %>/source/<%= quote.source %>"><%= quote.source %></a> posted <%= quote.created_at.strftime(fmt='the %D at %R') %> (#<a href="<%= @domain %>/get/<%= quote.id %>"><%= quote.id %></a> | <a href="<%= @domain %>/vote/<%= quote.id %>"><%= Vote.count(:quote_id => quote.id) %> votes</a>)<br />
                     <img alt="Spacer" src="<%= @domain %>/images/spacer.gif" width="12" height="12" /> 
                     Tags: <i>
-                    <% quote.tags.split(?,).each { |tag,| %>
+                    <% quote.tags.split(/,/).each { |tag,| %>
                       <a href="<%= @domain %>/tag/<%= tag %>"><%= tag %></a>
                     <% } %>
                     </i>
@@ -25,7 +25,7 @@
                   
                   <div class="g-plusone" data-size="medium" data-annotation="none" data-href="<%= @domain %>/get/<%= quote.id %>"></div>
                   
-                  <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= @domain %>/get/<%= quote.id %>" data-text="<%= quote.quote.gsub('&#34;', ?")[0..(120-"#{@domain}/get/quote.id".length)] %>... | <%= @domain %>/get/<%= quote.id %>" data-lang="<%= @language %>" data-hashtags="quotone">Tweet</a>
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= @domain %>/get/<%= quote.id %>" data-text="<%= quote.quote.gsub('&#34;', '"')[0..(120-"#{@domain}/get/quote.id".length)] %>... | <%= @domain %>/get/<%= quote.id %>" data-lang="<%= @language %>" data-hashtags="quotone">Tweet</a>
                 </footer>
               </section>
             <% end %>
