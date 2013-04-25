@@ -28,8 +28,16 @@ class Quotone
     @ip           = request.ip
   end
 	
-  get '/:page?' do |page|
-    @page     = (page || 1).to_i
+  get '/' do
+    @page     = 1
+    @quotes   = Quote.all.page(@page, :per_page => 5)
+    @previous = @page > 1
+    @next     = @page <= (Quote.all.length / 5)
+    erb :index
+  end
+	
+  get '/:page' do |page|
+    @page     = page.to_i
     @quotes   = Quote.all.page(@page, :per_page => 5)
     @previous = @page > 1
     @next     = @page <= (Quote.all.length / 5)

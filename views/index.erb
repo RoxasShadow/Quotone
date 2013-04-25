@@ -9,16 +9,25 @@
                     <img alt="Language: <%= quote.language %>" src="<%= @domain %>/images/flags/<%= quote.language %>.gif" width="12" height="12" /> 
                     From <a href="<%= @domain %>/source/<%= quote.source %>"><%= quote.source %></a> posted <%= quote.created_at.strftime(fmt='the %D at %R') %> (#<a href="<%= @domain %>/get/<%= quote.id %>"><%= quote.id %></a> | <a href="<%= @domain %>/vote/<%= quote.id %>"><%= Vote.count(:quote_id => quote.id) %> votes</a>)<br />
                     <img alt="Spacer" src="<%= @domain %>/images/spacer.gif" width="12" height="12" /> 
-                    Tags: <i>
-                    <% quote.tags.split(/,/).each { |tag,| %>
-                      <a href="<%= @domain %>/tag/<%= tag %>"><%= tag %></a>
-                    <% } %>
-                    </i>
+                    <% if quote.tags.split(/,/).any? %>
+                      Tags: <i>
+                      <% quote.tags.split(/,/).each { |tag| %>
+                        <a href="<%= @domain %>/tag/<%= tag %>"><%= tag %></a>
+                      <% } %>
+                      </i>
+                    <% else %>
+                      <i>No tags assigned</i>
+                    <% end %>
                   </p>
                 </header>
                 <hr />
                 <article>
-                  <p><%= quote.quote %></p>
+                  <p>
+                    <%= quote.quote.gsub(/\n/, "<br />\n").lines.take(3) %>
+                    <% if quote.quote.gsub(/\n/, "<br />\n").lines.count > 3 %>
+                      <a href="<%= @domain %>/get/<%= quote.id %>">Read more</a>
+                    <% end %>
+                  </p>
                 </article>
                 <footer>
                   <iframe src="//www.facebook.com/plugins/like.php?href=<%= @domain %>/get/<%= quote.id %>%2F&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;font=arial&amp;colorscheme=dark&amp;action=like&amp;height=19" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:19px;" allowTransparency="true"></iframe>
