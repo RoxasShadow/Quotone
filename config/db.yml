@@ -1,11 +1,11 @@
 hostname:
-  xxx
+  localhost
   
 username:
-  xxx
+  root
   
 password:
-  xxx
+  kronos
   
 database:
-  xxx
+  quotone

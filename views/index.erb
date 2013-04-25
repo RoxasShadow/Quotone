@@ -20,13 +20,10 @@
                     <% end %>
                   </p>
                 </header>
-                <hr />
+                
                 <article>
                   <p>
-                    <%= quote.quote.gsub(/\n/, "<br />\n").lines.take(3) %>
-                    <% if quote.quote.gsub(/\n/, "<br />\n").lines.count > 3 %>
-                      <a href="<%= @domain %>/get/<%= quote.id %>">Read more</a>
-                    <% end %>
+                    <%= quote.quote.gsub(/\n/, "<br />\n") %>
                   </p>
                 </article>
                 <footer>
@@ -38,16 +35,17 @@
                 </footer>
               </section>
             <% end %>
+          <hr />
           <% } %>
         <% else %>
           <p>No quotes found.</p>
         <% end %>
         
         <% if @previous || @next %>
-          <div id="pagination">
+          <div id="pagination" class="text-center">
               <p>
-                <% if @previous%><a href="<%= @domain %>/<%= @page - 1 %>">Previous</a><% end %>
-                <% if @next %><a href="<%= @domain %>/<%= @page + 1 %>">Next</a><% end %>
+                <% if @previous%><a href="<%= @domain %>/page/<%= @page - 1 %>">Previous</a><% end %>
+                <% if @next %><a href="<%= @domain %>/page/<%= @page + 1 %>">Next</a><% end %>
               </p>
           </div>
         <% end %>

@@ -3,17 +3,35 @@
   <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
     <title><% if @title %><%= @title %> | <% end %>Quotone</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="<%= @domain %>/css/style.css" />
+    <link href="<%= @domain %>/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="<%= @domain %>/css/style.css" rel="stylesheet" />
+    <link href="<%= @domain %>/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
     <% if @current_page == ?/ %><meta name="description" content="The place where you can share anonymously your favorite quotes from anime, manga, videogames, books, etc." /><% end %>
     <meta name="robots" content="index,follow" />
   </head>
   
   <body>
-    <div id="body">
-      <div id="logo"></div>
-      <div id="contents" class="header">
-      <nav>
-        <% if @current_page != ?/ %><a href="<%= @domain %>">Index</a><% end %>
-        <% if @current_page != ?/ && @current_page != '/new' %>&#8226;<% end %>
-        <% if @current_page != '/new' %><a href="<%= @domain %>/new">New</a><% end %>
-      </nav>
+  
+    <div class="text-center">
+      <img src="http://www.quotone.unsigned.it/images/logo.png" width="397" height="76" />
+    </div>
+    
+    <div class="container main">
+      
+        <ul class="nav nav-tabs">
+          <% if @current_page == '/new' %>
+            <li>
+              <a href="<%= @domain %>/">Index</a>
+            </li>
+            <li class="active">
+              <a href="<%= @domain %>/new">New</a>
+            </li>
+          <% else %>
+            <li class="active">
+              <a href="<%= @domain %>/">Index</a>
+            </li>
+            <li>
+              <a href="<%= @domain %>/new">New</a>
+            </li>
+          <% end %>
+        </ul>

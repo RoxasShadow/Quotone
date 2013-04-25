@@ -7,12 +7,12 @@
       <% elsif @output == 'duplicate' %>
         <p>Error sending the quote: Username not available.</p>
       <% else %>
-        <form action="" method="post">
-          <input type="text" name="source" placeholder="source" /><br />
-          <input type="text" name="tags" placeholder="tag1, tag2, tag3" title="Divide each tag by a comma (,)." /><br />
-          <textarea name="quote" cols="65" rows="10"></textarea><br />
-          <input type="submit" value="Send" />
+        <form action="" method="post" class="form">
+          <input type="text" class="input-block-level" name="source" placeholder="Source" />
+          <input type="text" class="input-block-level" name="tags" placeholder="Tags" title="Divide each tag by a comma (,)" />
+          <textarea class="input-block-level" name="quote" rows="10"></textarea>
           <%= csrf_tag %>
+          <input type="submit" class="btn btn-medium" value="Send" />
         </form>
       <% end %>
         

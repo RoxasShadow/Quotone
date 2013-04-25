@@ -36,7 +36,7 @@ class Quotone
     erb :index
   end
 	
-  get '/:page' do |page|
+  get '/page/:page' do |page|
     @page     = page.to_i
     @quotes   = Quote.all.page(@page, :per_page => 5)
     @previous = @page > 1
