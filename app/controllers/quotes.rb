@@ -52,11 +52,11 @@ class Quotone
   
   get '/vote/:id' do |id|
     unless quote = Quote.get(id.to_i)
-      redirect "#{@domain}/get/#{id}"
+      redirect back
     end
     
     if Vote.count(:quote_id => quote.id, :ip => @ip) > 0
-      redirect "#{@domain}/get/#{id}"
+      redirect back
     end
     
     quote.votes.create(:ip => @ip)

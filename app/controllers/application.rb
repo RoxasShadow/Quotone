@@ -30,7 +30,7 @@ class Quotone
 	
   get '/' do
     @page     = 1
-    @quotes   = Quote.all.page(@page, :per_page => 5)
+    @quotes   = Quote.all.page(@page, :per_page => 5).add_votes
     @previous = @page > 1
     @next     = @page <= (Quote.all.length / 5)
     erb :index
@@ -38,7 +38,7 @@ class Quotone
 	
   get '/page/:page' do |page|
     @page     = page.to_i
-    @quotes   = Quote.all.page(@page, :per_page => 5)
+    @quotes   = Quote.all.page(@page, :per_page => 5).add_votes
     @previous = @page > 1
     @next     = @page <= (Quote.all.length / 5)
     erb :index
@@ -46,7 +46,7 @@ class Quotone
 	
   get '/source/:source/?:page?' do |source, page|
     @page     = (page || 1).to_i
-    @quotes   = Quote.all(:source => source).page(@page, :per_page => 5)
+    @quotes   = Quote.all(:source => source).page(@page, :per_page => 5).add_votes
     @previous = @page > 1
     @next     = @page <= (Quote.all(:source => source).length / 5)
     @title    = source
@@ -56,7 +56,7 @@ class Quotone
 	
   get '/tag/:tag/?:page?' do |tag, page|
     @page     = (page || 1).to_i
-    @quotes   = Quote.all(:tags.like => "%#{tag}%").page(@page, :per_page => 5)
+    @quotes   = Quote.all(:tags.like => "%#{tag}%").page(@page, :per_page => 5).add_votes
     @previous = @page > 1
     @next     = @page <= (Quote.all(:tags.like => "%#{tag}%").length / 5)
     @title    = 'Tag: ' + tag
@@ -65,7 +65,7 @@ class Quotone
   end
 	
   get '/get/:id' do |id|
-    @quotes = [ Quote.get(id.to_i) ]
+    @quotes = [ Quote.get(id.to_i) ].add_votes
     @title  = 'Quote #' + id
     
     erb :index

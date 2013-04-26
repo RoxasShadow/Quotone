@@ -32,6 +32,8 @@ class Quote
   
   before :save, :purge
   
+  attr_accessor :n_votes
+  
   def purge
   	self.source = Rack::Utils.escape_html self.source
   	self.tags   = Rack::Utils.escape_html self.tags
