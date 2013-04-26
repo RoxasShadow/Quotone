@@ -27,11 +27,11 @@
                   </p>
                 </article>
                 <footer>
-                  <iframe src="//www.facebook.com/plugins/like.php?href=<%= @domain %>/get/<%= quote.id %>%2F&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;font=arial&amp;colorscheme=dark&amp;action=like&amp;height=19" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:19px;" allowTransparency="true"></iframe>
+                  <div class="fb-like" data-href="<%= @domain %>/get/<%= quote.id %>" data-send="false" data-width="100" data-show-faces="false"></div>
                   
                   <div class="g-plusone" data-size="medium" data-annotation="none" data-href="<%= @domain %>/get/<%= quote.id %>"></div>
                   
-                  <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= @domain %>/get/<%= quote.id %>" data-text="<%= quote.quote.gsub('&#34;', '"')[0..(120-"#{@domain}/get/quote.id".length)] %>... | <%= @domain %>/get/<%= quote.id %>" data-lang="<%= @language %>" data-hashtags="quotone">Tweet</a>
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= @domain %>/get/<%= quote.id %>" data-text="<%= quote.quote.gsub('&#34;', '"')[0..(120-"#{@domain}/get/quote.id".length)] %>..." data-lang="<%= @language %>" data-hashtags="quotone">Tweet</a>
                 </footer>
               </section>
             <% end %>
