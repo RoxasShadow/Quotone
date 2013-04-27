@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:fb="http://ogp.me/ns/fb#">
   <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <title><% if @title %><%= @title %> | <% end %>Quotone</title>
+    <title><% if @title %><%= @title %> | <% else %><% if @quotes.one? %><%= @quotes.first.quote[0..50] %>... | <% end %><% end %>Quotone</title>
     <link href="<%= @domain %>/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="<%= @domain %>/css/style.css" rel="stylesheet" />
     <link href="<%= @domain %>/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
-    <% if @current_page == ?/ %><meta name="description" content="The place where you can share anonymously your favorite quotes from anime, manga, videogames, books, etc." /><% end %>
+    <meta name="description" content="<% if @quotes.one? %><%= @quotes.first.quote[0..300] %><% else %>The place where you can share anonymously your favorite quotes from anime, manga, videogames, books, etc.<% end %>" />
     <meta name="robots" content="index,follow" />
+
+    <meta property="og:title" content="<% if @title %><%= @title %> | <% else %><% if @quotes.one? %><%= @quotes.first.quote[0..50] %>... | <% end %><% end %>Quotone" />
+    <meta property="og:url" content="<%= @current_url %>"/>
+    <meta property="og:site_name" content="Quotone"/>
+    <meta property="og:type" content="blog" />
+    <!--<meta property="og:image" content="http://exmaple.com/image.jpg" />-->
+    <meta property="og:description" content="<% if @quotes.one? %><%= @quotes.first.quote[0..300] %><% else %>The place where you can share anonymously your favorite quotes from anime, manga, videogames, books, etc.<% end %>" />
+    <meta property="fb:app_id" content="518439418193164" />
   </head>
   
   <body>
@@ -17,7 +25,7 @@
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=133510783352689";
+      js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=518439418193164";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
   

@@ -17,30 +17,8 @@
 # along with Quotone.  If not, see <http://www.gnu.org/licenses/>.
 #++
 
-module DataMapper
-
-  class Collection
-    def add_votes
-      self.each { |quote|
-        quote.n_votes = Vote.count(:quote_id => quote.id)
-      }.sort_by { |a| [-a.n_votes, -a.id] }
-    end
-  end
-  
-  module Resource
-    def add_votes
-      self.each { |quote|
-        quote.n_votes = Vote.count(:quote_id => quote.id)
-      }.sort_by { |a| [-a.n_votes, -a.id] }
-    end
-  end
-  
-end
-
-class Array
-  def add_votes
-    self.each { |quote|
-      quote.n_votes = Vote.count(:quote_id => quote.id)
-      }.sort_by { |a| [-a.n_votes, -a.id] }
+class NilClass
+  def one?
+    false
   end
 end
