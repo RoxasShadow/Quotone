@@ -13,24 +13,16 @@
     <meta property="og:url" content="<%= @current_url %>"/>
     <meta property="og:site_name" content="Quotone"/>
     <meta property="og:type" content="blog" />
-    <!--<meta property="og:image" content="http://exmaple.com/image.jpg" />-->
+    <meta property="og:image" content="<%= @domain %>/images/logo.png" />
     <meta property="og:description" content="<% if @quotes.one? %><%= @quotes.first.quote[0..300] %><% else %>The place where you can share anonymously your favorite quotes from anime, manga, videogames, books, etc.<% end %>" />
-    <meta property="fb:app_id" content="518439418193164" />
+    
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "343c72a8-1055-4ffd-a8b8-69e29aab9e79"});</script>
   </head>
   
-  <body>
-  
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=518439418193164";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-  
+  <body>  
     <div class="text-center">
-      <img src="http://www.quotone.unsigned.it/images/logo.png" width="397" height="76" />
+      <img src="<%= @domain %>/images/logo.png" width="397" height="76" />
     </div>
     
     <div class="container main">

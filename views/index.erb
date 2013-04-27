@@ -27,11 +27,9 @@
                   </p>
                 </article>
                 <footer>
-                  <fb:like href="<%= @domain %>/get/<%= quote.id %>" send="true" layout="button_count" width="100" show_faces="false"></fb:like>
-                  
-                  <div class="g-plusone" data-size="medium" data-annotation="none" data-href="<%= @domain %>/get/<%= quote.id %>"></div>
-                  
-                  <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= @domain %>/get/<%= quote.id %>" data-text="<%= quote.quote.gsub('&#34;', '"')[0..(120-"#{@domain}/get/quote.id".length)] %>..." data-lang="<%= @language %>" data-hashtags="quotone">Tweet</a>
+                  <span class="st_facebook_hcount"   st_url="<%= @domain %>/get/<%= quote.id %>" st_title="<%= quote.quote[0..50] %> | Quotone" st_summary="<%= quote.quote[0..300] %>"></span>
+                  <span class="st_twitter_hcount"    st_url="<%= @domain %>/get/<%= quote.id %>" st_title="<%= quote.quote[0..50] %> | Quotone" st_summary="<%= quote.quote[0..300] %>"></span>
+                  <span class="st_googleplus_hcount" st_url="<%= @domain %>/get/<%= quote.id %>" st_title="<%= quote.quote[0..50] %> | Quotone" st_summary="<%= quote.quote[0..300] %>"></span>
                 </footer>
               </section>
             <% end %>

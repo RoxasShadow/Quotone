@@ -50,7 +50,7 @@ class Quotone
     @quotes   = Quote.all(:source => source).page(@page, :per_page => 5).add_votes
     @previous = @page > 1
     @next     = @page <= (Quote.all(:source => source).length / 5)
-    @title    = "Source #{source}"
+    @title    = "Source: #{source}"
     
     erb :index
   end
