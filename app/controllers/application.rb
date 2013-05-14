@@ -42,6 +42,17 @@ class Quotone
     @previous = @page > 1
     @next     = @page <= (Quote.all.length / 5)
     @title    = "Page #{@page}"
+    
+    erb :index
+  end
+	
+  get '/favorites/?:page?' do |page|
+    @page     = (page || 1).to_i
+    @quotes   = Quote.all.page(@page, :per_page => 5).add_votes.sort_by { |a| [-a.n_votes, -a.id] }
+    @previous = @page > 1
+    @next     = @page <= (Quote.all.length / 5)
+    @title    = "Favorites (#{@page || 1})"
+    
     erb :index
   end
 	
@@ -50,7 +61,7 @@ class Quotone
     @quotes   = Quote.all(:source => source).page(@page, :per_page => 5).add_votes
     @previous = @page > 1
     @next     = @page <= (Quote.all(:source => source).length / 5)
-    @title    = "Source: #{source}"
+    @title    = "Source: #{source} (#{@page || 1})"
     
     erb :index
   end
@@ -60,7 +71,7 @@ class Quotone
     @quotes   = Quote.all(:tags.like => "%#{tag}%").page(@page, :per_page => 5).add_votes
     @previous = @page > 1
     @next     = @page <= (Quote.all(:tags.like => "%#{tag}%").length / 5)
-    @title    = "Tag: #{tag}"
+    @title    = "Tag: #{tag} (#{@page || 1})"
     
     erb :index
   end

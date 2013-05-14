@@ -31,19 +31,45 @@
     <div class="container main">
       
         <ul class="nav nav-tabs">
-          <% if @current_page == '/new' %>
+          <% if @current_page == ?/ || @current_page.start_with?('/page') %>
+            <li class="active">
+              <a href="<%= @domain %>/">Index</a>
+            </li>
+            <li>
+              <a href="<%= @domain %>/new">New</a>
+            </li>
+            <li>
+              <a href="<%= @domain %>/favorites">Favorites</a>
+            </li>
+          <% elsif @current_page.start_with?('/new') %>
             <li>
               <a href="<%= @domain %>/">Index</a>
             </li>
             <li class="active">
               <a href="<%= @domain %>/new">New</a>
+            </li>
+            <li>
+              <a href="<%= @domain %>/favorites">Favorites</a>
+            </li>
+          <% elsif @current_page.start_with?('/favorites') %>
+            <li>
+              <a href="<%= @domain %>/">Index</a>
+            </li>
+            <li>
+              <a href="<%= @domain %>/new">New</a>
+            </li>
+            <li class="active">
+              <a href="<%= @domain %>/favorites">Favorites</a>
             </li>
           <% else %>
-            <li class="active">
+            <li>
               <a href="<%= @domain %>/">Index</a>
             </li>
             <li>
               <a href="<%= @domain %>/new">New</a>
+            </li>
+            <li>
+              <a href="<%= @domain %>/favorites">Favorites</a>
             </li>
           <% end %>
         </ul>

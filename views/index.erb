@@ -39,8 +39,8 @@
         <% if @previous || @next %>
           <div id="pagination" class="text-center">
               <p>
-                <% if @previous%><a href="<%= @domain %>/page/<%= @page - 1 %>">Previous</a><% end %>
-                <% if @next %><a href="<%= @domain %>/page/<%= @page + 1 %>">Next</a><% end %>
+                <% if @previous%><a href="<%= @domain %><%= @current_page != ?/ ? @current_page.delete_page_by_url : '/page' %>/<%= @page - 1 %>">Previous</a><% end %>
+                <% if @next %><a href="<%= @domain %><%= @current_page    != ?/ ? @current_page.delete_page_by_url : '/page' %>/<%= @page + 1 %>">Next</a><% end %>
               </p>
           </div>
         <% end %>

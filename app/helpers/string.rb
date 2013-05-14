@@ -17,30 +17,15 @@
 # along with Quotone.  If not, see <http://www.gnu.org/licenses/>.
 #++
 
-module DataMapper
+class String
 
-  class Collection
-    def add_votes
-      self.each { |quote|
-        quote.n_votes = Vote.count(:quote_id => quote.id)
-      }
-    end
+	def numeric?
+		self.to_i.to_s == self || self.to_f.to_s == self
+	end
+	
+  def delete_page_by_url
+    url = self.split(/\//)
+    return (url.last.numeric? ? url[0..-2] : url[0..-1]).join ?/
   end
   
-  module Resource
-    def add_votes
-      self.each { |quote|
-        quote.n_votes = Vote.count(:quote_id => quote.id)
-      }
-    end
-  end
-  
-end
-
-class Array
-  def add_votes
-    self.each { |quote|
-      quote.n_votes = Vote.count(:quote_id => quote.id)
-      }
-  end
 end
