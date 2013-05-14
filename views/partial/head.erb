@@ -31,7 +31,7 @@
     <div class="container main">
       
         <ul class="nav nav-tabs">
-          <% if @current_page == ?/ || @current_page.start_with?('/page') %>
+          <% if @current_page == '/' || @current_page.start_with?('/page') %>
             <li class="active">
               <a href="<%= @domain %>/">Index</a>
             </li>
