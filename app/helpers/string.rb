@@ -25,7 +25,8 @@ class String
 	
   def delete_page_by_url
     url = self.split(/\//)
-    return (url.last.numeric? ? url[0..-2] : url[0..-1]).join ?/
+    return url.last if url.empty?
+    return (url.last.numeric? ? url[0..-2] : url[0..-1]).join('/')
   end
   
 end
