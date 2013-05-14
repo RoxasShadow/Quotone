@@ -26,10 +26,8 @@
                     <%= quote.quote.gsub(/\n/, "<br />\n") %>
                   </p>
                 </article>
-                <footer>
-                  <span class="st_facebook_hcount"   st_url="<%= @domain %>/get/<%= quote.id %>" st_title="<%= quote.quote[0..50] %> | Quotone" st_summary="<%= quote.quote[0..300] %>"></span>
-                  <span class="st_twitter_hcount"    st_url="<%= @domain %>/get/<%= quote.id %>" st_title="<%= quote.quote[0..50] %> | Quotone" st_summary="<%= quote.quote[0..300] %>"></span>
-                  <span class="st_googleplus_hcount" st_url="<%= @domain %>/get/<%= quote.id %>" st_title="<%= quote.quote[0..50] %> | Quotone" st_summary="<%= quote.quote[0..300] %>"></span>
+                <footer class="share">
+                    <div class="shareme" data-url="<%= @domain %>/get/<%= quote.id %>" data-text="<%= quote.quote[0..300] %>"></div>
                 </footer>
               </section>
             <% end %>
