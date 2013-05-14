@@ -1,6 +1,6 @@
 The place where you can share anonymously your favorite quotes from anime, manga, videogames, books, etc.
 
-Running at http://www.quotone.unsigned.it
+Running at http://www.quotone.unsigned.it and compatible with ruby-1.8.7 (just for server reasons, it take me away some magics ç_ç)
 
 ```
 sudo gem install thin
