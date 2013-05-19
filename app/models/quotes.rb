@@ -35,9 +35,10 @@ class Quote
   attr_accessor :n_votes
   
   def purge
-  	self.source = Rack::Utils.escape_html self.source
-  	self.tags   = Rack::Utils.escape_html self.tags
-  	self.quote  = Rack::Utils.escape_html self.quote
+  	self.source      = Rack::Utils.escape_html self.source
+  	self.tags        = Rack::Utils.escape_html self.tags
+  	self.quote       = Rack::Utils.escape_html self.quote
+  	self.created_at  = Time.now.utc + 2*60*60
   end
   
   protected
