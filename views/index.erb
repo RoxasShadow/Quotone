@@ -7,7 +7,7 @@
                 <header>
                   <p>
                     <img alt="Language: <%= quote.language %>" src="<%= @domain %>/images/flags/<%= quote.language %>.gif" width="12" height="12" /> 
-                    From <a href="<%= @domain %>/source/<%= quote.source %>"><%= quote.source %></a> posted <%= quote.created_at.strftime(fmt='the %D at %R') %> (#<a href="<%= @domain %>/get/<%= quote.id %>"><%= quote.id %></a> | <a href="<%= @domain %>/vote/<%= quote.id %>"><%= quote.n_votes %> votes</a>)<br />
+                    From <a href="<%= @domain %>/source/<%= quote.source %>"><%= quote.source %></a> posted <%= quote.created_at.strftime(fmt='the %D at %H:%M') %> (#<a href="<%= @domain %>/get/<%= quote.id %>"><%= quote.id %></a> | <a href="<%= @domain %>/vote/<%= quote.id %>"><%= quote.n_votes %> votes</a>)<br />
                     <img alt="Spacer" src="<%= @domain %>/images/spacer.gif" width="12" height="12" /> 
                     <% if quote.tags.split(/,/).any? %>
                       Tags: <i>
