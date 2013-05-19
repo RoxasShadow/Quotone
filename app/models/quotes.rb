@@ -23,7 +23,7 @@ class Quote
   property	:id,          Serial
   property  :ip,          String, :required => true
   property	:source,      String, :required => true
-  property	:tags,        String
+  property	:tags,        Text
   property  :language,    String, :required => true
   property	:quote,       Text,   :required => true
   property	:created_at,  DateTime
