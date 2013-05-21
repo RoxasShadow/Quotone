@@ -19,28 +19,30 @@
 
 class Quotone
 
-	helpers do
-		
-		def csrf_token
-			Rack::Csrf.csrf_token(env)
-		end
-		
-		def csrf_tag
-			Rack::Csrf.csrf_tag(env)
-		end
-		
-		def admin?
-		  get_cookie(settings.username) == settings.token
-		end
-		
-		def only_for_admin!
-		  halt [ 401, 'Not Authorized' ] unless admin?
-		end
-		
-		def only_for_users!
-		  halt [ 401, 'Not Authorized' ] if admin?
-		end
-		
-	end
-	
+  get '/admin/login' do
+    only_for_users!
+    
+    @title = 'Login'
+    erb :login
+  end
+  
+  post '/admin/login' do
+    only_for_users!
+    
+    if params['username'] == settings.username && params['password'] == settings.password
+      set_cookie settings.username, settings.token
+      redirect '/'
+    end
+    
+    @error = 'Invalid login.'
+    erb :error
+  end
+  
+  get '/admin/logout' do
+    only_for_admin!
+    
+    delete_cookie settings.username
+    redirect '/'
+  end
+  
 end

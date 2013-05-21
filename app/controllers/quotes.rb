@@ -51,16 +51,28 @@ class Quotone
   end
   
   get '/vote/:id' do |id|
-    unless quote = Quote.get(id.to_i)
-      redirect back
-    end
+    redirect back unless quote = Quote.get(id.to_i)
     
-    if Vote.count(:quote_id => quote.id, :ip => @ip) > 0
-      redirect back
-    end
+    redirect back if Vote.count(:quote_id => quote.id, :ip => @ip) > 0
     
     quote.votes.create(:ip => @ip)
     redirect back
+  end
+  
+  get '/delete/:id' do |id|
+    only_for_admin!
+    
+    unless quote = Quote.get(id.to_i)
+      @error = 'Quote not found.'
+      erb :error
+    end
+    
+    unless quote.destroy
+      @error = 'Quote deletion failed.'
+      erb :error
+    else
+      redirect back
+    end
   end
   
 end

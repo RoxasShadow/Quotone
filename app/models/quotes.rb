@@ -28,7 +28,7 @@ class Quote
   property	:quote,       Text,   :required => true
   property	:created_at,  DateTime
   property	:updated_at,  DateTime
-  has n, :votes
+  has n, :votes, :constraint => :destroy
   
   before :save, :purge
   

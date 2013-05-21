@@ -1,0 +1,10 @@
+<%= erb :'partial/head' %>
+      
+        <form method="post" action="<%= @domain %>/admin/login">
+          <input type="text"     name="username" placeholder="username" /><br />
+          <input type="password" name="password" placeholder="password" /><br />
+          <input type="submit"   value="Login" />
+          <%= csrf_tag %>
+        </form>
+        
+<%= erb :'partial/foot' %>

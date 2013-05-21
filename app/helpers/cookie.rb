@@ -19,28 +19,25 @@
 
 class Quotone
 
-	helpers do
-		
-		def csrf_token
-			Rack::Csrf.csrf_token(env)
-		end
-		
-		def csrf_tag
-			Rack::Csrf.csrf_tag(env)
-		end
-		
-		def admin?
-		  get_cookie(settings.username) == settings.token
-		end
-		
-		def only_for_admin!
-		  halt [ 401, 'Not Authorized' ] unless admin?
-		end
-		
-		def only_for_users!
-		  halt [ 401, 'Not Authorized' ] if admin?
-		end
-		
-	end
+  helpers do
+  
+	  def set_cookie(key, value)
+		  response.set_cookie(key, { :value => value, :path => '/', :expires => Time.now + 24 * 60 * 60 })
+	  end
 	
+	  def delete_cookie(key)
+	    response.set_cookie(key, { :value => '', :path => '/', :expires => Time.now })
+	  end
+	
+	  def get_cookie(key)
+		  request.cookies[key]
+	  end
+	
+	  def cookie_exists?(key)
+		  !(get_cookie(key).nil? || get_cookie(key).empty?)
+	  end
+		  
+  end
+  
 end
+

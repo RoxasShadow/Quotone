@@ -72,4 +72,10 @@
               <a href="<%= @domain %>/favorites">Favorites</a>
             </li>
           <% end %>
+          
+          <% if admin? %>
+          <li>
+            <a href="<%= @domain %>/admin/logout">Logout</a>
+          </li>
+          <% end %>
         </ul>

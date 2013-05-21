@@ -57,9 +57,9 @@ GEM
       data_objects (= 0.10.12)
     eventmachine (1.0.3)
     fastercsv (1.5.5)
-    json (1.7.7)
-    json_pure (1.7.7)
-    multi_json (1.7.2)
+    json (1.8.0)
+    json_pure (1.8.0)
+    multi_json (1.7.3)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
@@ -74,8 +74,8 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
-    tilt (1.3.7)
-    uuidtools (2.1.3)
+    tilt (1.4.1)
+    uuidtools (2.1.4)
 
 PLATFORMS
   ruby

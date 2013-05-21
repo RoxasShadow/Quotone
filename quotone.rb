@@ -25,17 +25,24 @@ require 'dm-pager'
 require 'digest/md5'
 
 class Quotone < Sinatra::Base
-  enable :sessions
   
   db = YAML::load File.read('config/db.yml')
   DataMapper.setup(:default, "mysql://#{db['username']}:#{db['password']}@#{db['hostname']}/#{db['database']}")
   
   configure {
     set :method_override, true
+    
+    set :username, 'ambrogio'
+    set :token,    'rfvklklfklmvlfked'
+    set :password, 'hurrdurr'
+    
+    use Rack::Session::Cookie,
+      :path   => '/',
+      :secret => 'dafuq are u doing? pls stahp'
   
     use Rack::Csrf,
-      :raise      => true,
-      :field      => '_csrf'
+      :raise => true,
+      :field => '_csrf'
   }
   
   Dir.glob("#{Dir.pwd}/app/helpers/*.rb") { |m| require m.chomp }
