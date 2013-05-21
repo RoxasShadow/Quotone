@@ -1,7 +1,7 @@
 admin:
   username: ambrogio    
   password: hurrdurr    
-  token: rfvklklfklmvlfked
+  token:    rfvklklfklmvlfked
     
 database:
   hostname: xxx
@@ -11,4 +11,4 @@ database:
     
 miscs:
   cookie: dafuq are u doing? pls stahp
-  csrf: _csrf
+  csrf:   _csrf
