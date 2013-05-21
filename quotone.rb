@@ -26,23 +26,23 @@ require 'digest/md5'
 
 class Quotone < Sinatra::Base
   
-  db = YAML::load File.read('config/db.yml')
-  DataMapper.setup(:default, "mysql://#{db['username']}:#{db['password']}@#{db['hostname']}/#{db['database']}")
+  config = YAML::load File.read('config/config.yml')
+  DataMapper.setup(:default, "mysql://#{config['database']['username']}:#{config['database']['password']}@#{config['database']['hostname']}/#{config['database']['database']}")
   
   configure {
     set :method_override, true
     
-    set :username, 'ambrogio'
-    set :token,    'rfvklklfklmvlfked'
-    set :password, 'hurrdurr'
+    set :username, config['admin']['username']
+    set :password, config['admin']['password']
+    set :token,    config['admin']['token']
     
     use Rack::Session::Cookie,
       :path   => '/',
-      :secret => 'dafuq are u doing? pls stahp'
+      :secret => config['miscs']['cookie']
   
     use Rack::Csrf,
       :raise => true,
-      :field => '_csrf'
+      :field => config['miscs']['csrf']
   }
   
   Dir.glob("#{Dir.pwd}/app/helpers/*.rb") { |m| require m.chomp }
