@@ -18,10 +18,12 @@
 #++
 
 require 'sinatra/base'
-require 'rack/csrf'
+
 require 'data_mapper'
 require 'dm-mysql-adapter'
 require 'dm-pager'
+
+require 'rack/csrf'
 require 'digest/md5'
 
 class Quotone < Sinatra::Base

@@ -8,6 +8,7 @@
     <link href="<%= @domain %>/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
     <link href="<%= @domain %>/css/style.css"                              rel="stylesheet" />
     <link href="<%= @domain %>/css/sharrre.css"                            rel="stylesheet" />
+    <link href="<%= @domain %>/css/widearea.css"                            rel="stylesheet" />
     
     <meta name="description" content="<% if @quotes.one? %><%= @quotes.first.quote[0..300] %><% else %>The place where you can share anonymously your favorite quotes from anime, manga, videogames, books, etc.<% end %>" />
     <meta name="robots"      content="index,follow" />
@@ -21,6 +22,7 @@
     
     <script type="text/javascript" src="<%= @domain %>/javascript/jquery.js"></script>
     <script type="text/javascript" src="<%= @domain %>/javascript/jquery.sharrre.js"></script>
+    <script type="text/javascript" src="<%= @domain %>/javascript/widearea.js"></script>
   </head>
   
   <body>  
