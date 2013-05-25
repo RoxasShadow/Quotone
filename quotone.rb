@@ -22,6 +22,7 @@ require 'sinatra/base'
 require 'data_mapper'
 require 'dm-mysql-adapter'
 require 'dm-pager'
+require 'dm-serializer'
 
 require 'rack/csrf'
 require 'digest/md5'
