@@ -17,34 +17,9 @@
 # along with Quotone.  If not, see <http://www.gnu.org/licenses/>.
 #++
 
-class Quotone
-
-	helpers do
-		
-		def csrf_token
-			Rack::Csrf.csrf_token(env)
-		end
-		
-		def csrf_tag
-			Rack::Csrf.csrf_tag(env)
-		end
-		
-		def admin?
-		  get_cookie(settings.username) == settings.token
-		end
-		
-		def only_for_admin!
-		  halt [ 401, 'Not Authorized' ] unless admin?
-		end
-		
-		def only_for_users!
-		  halt [ 401, 'Not Authorized' ] if admin?
-		end
-		
-		def owner_of? quote
-		  @ip == quote.ip && quote.created_at.today?
-		end
-		
-	end
-	
+class DateTime
+  def today?
+    today = Time.now.utc + 2*60*60
+    self.day == today.day && self.month == today.month && self.year == today.year
+  end
 end

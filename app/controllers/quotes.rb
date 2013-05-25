@@ -59,25 +59,25 @@ class Quotone
     redirect back
   end
 
-  get '/edit/:id' do |id|
-    only_for_admin!
-    
+  get '/edit/:id' do |id|    
     unless @quote = Quote.get(id.to_i)
       @error = 'Quote not found.'
       erb :error
     end
+    
+    only_for_admin! unless owner_of? @quote
     
     @title = 'Edit quote'
     erb :new
   end
 
   post '/edit/:id' do |id|
-    only_for_admin!
-    
     unless quote = Quote.get(id.to_i)
       @error = 'Quote not found.'
       erb :error
     end
+    
+    only_for_admin! unless owner_of? quote
     
     inputs = {
       :source => params[:source],
@@ -98,17 +98,17 @@ class Quotone
       @error = 'Quote editing failed.'
       erb :error
     else
-      redirect '/'
+      redirect "/get/#{id}"
     end
   end
   
-  get '/delete/:id' do |id|
-    only_for_admin!
-    
+  get '/delete/:id' do |id|    
     unless quote = Quote.get(id.to_i)
       @error = 'Quote not found.'
       erb :error
     end
+    
+    only_for_admin! unless owner_of? quote
     
     unless quote.destroy
       @error = 'Quote deletion failed.'
