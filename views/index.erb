@@ -12,7 +12,7 @@
                     <% if quote.tags.split(/,/).any? %>
                       Tags: <i>
                       <% quote.tags.split(/,/).each { |tag| %>
-                        <a href="<%= @domain %>/tag/<%= tag %>"><%= tag %></a>
+                        <a href="<%= @domain %>/tag/<%= tag.strip %>"><%= tag %></a>
                       <% } %>
                       </i>
                     <% else %>
