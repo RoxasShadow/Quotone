@@ -29,9 +29,9 @@ class Quotone
     @title = 'New quote'
     
     inputs = {
-      :source   => params[:source],
-      :tags     => params[:tags],
-      :quote    => params[:quote],
+      :source => params[:source],
+      :tags   => params[:tags],
+      :quote  => params[:quote],
     }
     
     inputs.delete_if { |key, val| val.nil? || val.empty? }
@@ -57,6 +57,49 @@ class Quotone
     
     quote.votes.create(:ip => @ip)
     redirect back
+  end
+
+  get '/edit/:id' do |id|
+    only_for_admin!
+    
+    unless @quote = Quote.get(id.to_i)
+      @error = 'Quote not found.'
+      erb :error
+    end
+    
+    @title = 'Edit quote'
+    erb :new
+  end
+
+  post '/edit/:id' do |id|
+    only_for_admin!
+    
+    unless quote = Quote.get(id.to_i)
+      @error = 'Quote not found.'
+      erb :error
+    end
+    
+    inputs = {
+      :source => params[:source],
+      :tags   => params[:tags],
+      :quote  => params[:quote],
+    }
+    
+    inputs.delete_if { |key, val| val.nil? || val.empty? }
+    
+    updated = quote.update(
+      :source   => inputs[:source],
+      :tags     => inputs[:tags],
+      :quote    => inputs[:quote],
+      :language => @language
+    )
+    
+    unless updated
+      @error = 'Quote editing failed.'
+      erb :error
+    else
+      redirect '/'
+    end
   end
   
   get '/delete/:id' do |id|

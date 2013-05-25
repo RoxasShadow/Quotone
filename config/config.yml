@@ -4,10 +4,10 @@ admin:
   token:    rfvklklfklmvlfked
   
 database:
-  hostname: xxx
-  username: xxx
-  password: xxx
-  database: xxx
+  hostname: localhost
+  username: root
+  password: kronos
+  database: quotone
   
 miscs:
   cookie: dafuq are u doing? pls stahp
