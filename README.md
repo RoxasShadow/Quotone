@@ -1,4 +1,8 @@
-The place where you can share anonymously your favorite quotes from anime, manga, videogames, books, etc.
+Quotone allows you to share with the world your favorite quotes from novels, movies, anime, manga, comics, videogames and so on in a completely anonimous way without any type of registrations.
+
+Each quote can be voted and shared on Facebook, Twitter and Google+, and you can search for others that deal with the same topic - through the tags - or others from the same work.
+
+APIs will be available soon.
 
 Running at http://www.quotone.unsigned.it and compatible with ruby-1.8.7 (just because it is running on my server).
 
