@@ -1,4 +1,4 @@
-- Possibility to delete own quotes
+- Possibility to edit/delete own quotes
 - Hit counter for each quote
 - Caching and minify of static resources
 - Public API
