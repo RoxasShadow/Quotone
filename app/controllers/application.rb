@@ -30,17 +30,19 @@ class Quotone
 	
   get '/' do
     @page     = 1
-    @quotes   = Quote.all.page(@page, :per_page => 5).add_votes
+    quotes    = Quote.all
+    @quotes   = quotes.page(@page, :per_page => 5).add_votes
     @previous = @page > 1
-    @next     = @page <= (Quote.all.length / 5)
+    @next     = @page <= ((quotes.length - 1) / 5)
     erb :index
   end
 	
   get '/page/:page' do |page|
     @page     = page.to_i
-    @quotes   = Quote.all.page(@page, :per_page => 5).add_votes
+    quotes    = Quote.all
+    @quotes   = quotes.page(@page, :per_page => 5).add_votes
     @previous = @page > 1
-    @next     = @page <= (Quote.all.length / 5)
+    @next     = @page <= ((quotes.length - 1) / 5)
     @title    = "Page #{@page}"
     
     erb :index
@@ -48,9 +50,10 @@ class Quotone
 	
   get '/favorites/?:page?' do |page|
     @page     = (page || 1).to_i
-    @quotes   = Quote.all.page(@page, :per_page => 5).add_votes.sort_by { |a| [-a.n_votes, -a.id] }
+    quotes    = Quote.all
+    @quotes   = quotes.page(@page, :per_page => 5).add_votes.sort_by { |a| [-a.n_votes, -a.id] }
     @previous = @page > 1
-    @next     = @page <= (Quote.all.length / 5)
+    @next     = @page <= ((quotes.length - 1) / 5)
     @title    = "Favorites (#{@page || 1})"
     
     erb :index
@@ -58,9 +61,10 @@ class Quotone
 	
   get '/source/:source/?:page?' do |source, page|
     @page     = (page || 1).to_i
-    @quotes   = Quote.all(:source => source).page(@page, :per_page => 5).add_votes
+    quotes    = Quote.all(:source => source)
+    @quotes   = quotes.page(@page, :per_page => 5).add_votes
     @previous = @page > 1
-    @next     = @page <= (Quote.all(:source => source).length / 5)
+    @next     = @page <= (quotes.length / 5)
     @title    = "Source: #{source} (#{@page || 1})"
     
     erb :index
@@ -68,9 +72,10 @@ class Quotone
 	
   get '/tag/:tag/?:page?' do |tag, page|
     @page     = (page || 1).to_i
-    @quotes   = Quote.all(:tags.like => "%#{tag}%").page(@page, :per_page => 5).add_votes
+    quotes    = Quote.all(:tags.like => "%#{tag}%")
+    @quotes   = quotes.page(@page, :per_page => 5).add_votes
     @previous = @page > 1
-    @next     = @page <= (Quote.all(:tags.like => "%#{tag}%").length / 5)
+    @next     = @page <= (quotes.length / 5)
     @title    = "Tag: #{tag} (#{@page || 1})"
     
     erb :index
