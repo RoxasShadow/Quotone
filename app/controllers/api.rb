@@ -30,7 +30,7 @@ class Quotone
   end
 	
   get '/api/source/:source/:page.?:format?' do |source, page, format|
-    quote = Quote.all(:source => source).page(page, :per_page => 5)
+    quote = Quote.all(:source.like => "%#{source}%").page(page, :per_page => 5)
     quote ? renderize(quote, format) : '{}'
   end
 	
@@ -47,10 +47,6 @@ class Quotone
   get '/api/get/:id.?:format?' do |id, format|
     quote = Quote.get(id.to_i)
     quote ? renderize(quote, format) : '{}'
-  end
-	
-  get '/api/csrf' do
-    csrf_token
   end
 
 end

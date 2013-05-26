@@ -61,7 +61,7 @@ class Quotone
 	
   get '/source/:source/?:page?' do |source, page|
     @page     = (page || 1).to_i
-    quotes    = Quote.all(:source => source)
+    quotes    = Quote.all(:source.like => "%#{source}%")
     @quotes   = quotes.page(@page, :per_page => 5)
     @previous = @page > 1
     @next     = @page <= (quotes.length / 5)
