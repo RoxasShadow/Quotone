@@ -2,7 +2,7 @@ Quotone allows you to share with the world your favorite quotes from novels, mov
 
 Each quote can be voted and shared on Facebook, Twitter and Google+, and you can search for others that deal with the same topic - through the tags - or others from the same work.
 
-APIs will be available soon.
+Read-only and multi-format APIs are available.
 
 Running at http://www.quotone.unsigned.it and compatible with ruby-1.8.7 (just because it is running on my server).
 

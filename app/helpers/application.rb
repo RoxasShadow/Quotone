@@ -45,6 +45,15 @@ class Quotone
 		  @ip == quote.ip && quote.created_at.today?
 		end
 		
+		def renderize(quote, format)
+      case format
+        when 'xml'  then quote.to_xml  :exclude => [:ip], :methods => [:n_votes]
+        when 'csv'  then quote.to_csv  :exclude => [:ip], :methods => [:n_votes]
+        when 'yaml' then quote.to_yaml :exclude => [:ip], :methods => [:n_votes]
+        else             quote.to_json :exclude => [:ip], :methods => [:n_votes]
+      end
+    end
+		
 	end
 	
 end

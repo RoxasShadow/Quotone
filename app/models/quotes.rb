@@ -41,6 +41,10 @@ class Quote
   	self.created_at  = Time.now.utc + 2*60*60
   end
   
+  def n_votes
+    Vote.count(:quote_id => self.id)
+  end
+  
   protected
   def method_missing(m, *args)
     false

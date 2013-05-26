@@ -31,7 +31,7 @@ class Quotone
   get '/' do
     @page     = 1
     quotes    = Quote.all
-    @quotes   = quotes.page(@page, :per_page => 5).add_votes
+    @quotes   = quotes.page(@page, :per_page => 5)
     @previous = @page > 1
     @next     = @page <= ((quotes.length - 1) / 5)
     erb :index
@@ -40,7 +40,7 @@ class Quotone
   get '/page/:page' do |page|
     @page     = page.to_i
     quotes    = Quote.all
-    @quotes   = quotes.page(@page, :per_page => 5).add_votes
+    @quotes   = quotes.page(@page, :per_page => 5)
     @previous = @page > 1
     @next     = @page <= ((quotes.length - 1) / 5)
     @title    = "Page #{@page}"
@@ -51,7 +51,7 @@ class Quotone
   get '/favorites/?:page?' do |page|
     @page     = (page || 1).to_i
     quotes    = Quote.all
-    @quotes   = quotes.page(@page, :per_page => 5).add_votes.sort_by { |a| [-a.n_votes, -a.id] }
+    @quotes   = quotes.page(@page, :per_page => 5).sort_by { |a| [-a.n_votes, -a.id] }
     @previous = @page > 1
     @next     = @page <= ((quotes.length - 1) / 5)
     @title    = "Favorites (#{@page || 1})"
@@ -62,7 +62,7 @@ class Quotone
   get '/source/:source/?:page?' do |source, page|
     @page     = (page || 1).to_i
     quotes    = Quote.all(:source => source)
-    @quotes   = quotes.page(@page, :per_page => 5).add_votes
+    @quotes   = quotes.page(@page, :per_page => 5)
     @previous = @page > 1
     @next     = @page <= (quotes.length / 5)
     @title    = "Source: #{source} (#{@page || 1})"
@@ -73,7 +73,7 @@ class Quotone
   get '/tag/:tag/?:page?' do |tag, page|
     @page     = (page || 1).to_i
     quotes    = Quote.all(:tags.like => "%#{tag}%")
-    @quotes   = quotes.page(@page, :per_page => 5).add_votes
+    @quotes   = quotes.page(@page, :per_page => 5)
     @previous = @page > 1
     @next     = @page <= (quotes.length / 5)
     @title    = "Tag: #{tag} (#{@page || 1})"
@@ -82,7 +82,7 @@ class Quotone
   end
 	
   get '/get/:id' do |id|
-    @quotes = [ Quote.get(id.to_i) ].add_votes
+    @quotes = Quote.all(:id => id.to_i)
     
     erb :index
   end

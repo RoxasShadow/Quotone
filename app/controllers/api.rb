@@ -19,17 +19,38 @@
 
 class Quotone
 	
+  get '/api/page/:page.?:format?' do |page, format|
+    quote = Quote.all.page(page, :per_page => 5)
+    quote ? renderize(quote, format) : '{}'
+  end
+	
+  get '/api/favorites/:page.?:format?' do |page, format|
+    quote = Quote.all.page(page, :per_page => 5).sort_by { |a| [-a.n_votes, -a.id] }
+    quote ? renderize(quote, format) : '{}'
+  end
+	
+  get '/api/source/:source/:page.?:format?' do |source, page, format|
+    quote = Quote.all(:source => source).page(page, :per_page => 5)
+    quote ? renderize(quote, format) : '{}'
+  end
+	
+  get '/api/tag/:tag/:page.?:format?' do |tag, page, format|
+    quote = Quote.all(:tags.like => "%#{tag}%").page(page, :per_page => 5)
+    quote ? renderize(quote, format) : '{}'
+  end
+	
+  get '/api/get/latest.?:format?' do |format|
+    quote = Quote.all.last
+    quote ? renderize(quote, format) : '{}'
+  end
+	
   get '/api/get/:id.?:format?' do |id, format|
     quote = Quote.get(id.to_i)
-    '{}' unless quote
-    
-    quote = [ quote ].add_votes.first
-    case format
-      when 'xml'  then quote.to_xml  :exclude => [:ip], :methods => [:n_votes]
-      when 'csv'  then quote.to_csv  :exclude => [:ip], :methods => [:n_votes]
-      when 'yaml' then quote.to_yaml :exclude => [:ip], :methods => [:n_votes]
-      else             quote.to_json :exclude => [:ip], :methods => [:n_votes]
-    end
+    quote ? renderize(quote, format) : '{}'
+  end
+	
+  get '/api/csrf' do
+    csrf_token
   end
 
 end
