@@ -81,6 +81,17 @@ class Quotone
     erb :index
   end
 	
+  post '/search/?:page?' do |page|
+    @page     = (page || 1).to_i
+    quotes    = Quote.all(:quote.like => "%#{params['query']}%")
+    @quotes   = quotes.page(@page, :per_page => 5)
+    @previous = @page > 1
+    @next     = @page <= (quotes.length / 5)
+    @title    = "Search: #{params['query']} (#{@page || 1})"
+    
+    erb :index
+  end
+	
   get '/get/:id' do |id|
     @quotes = Quote.all(:id => id.to_i)
     

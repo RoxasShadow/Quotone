@@ -80,4 +80,9 @@
             <a href="<%= @domain %>/admin/logout">Logout</a>
           </li>
           <% end %>
+          
+          <form action="<%= @domain %>/search" method="post" class="navbar-search pull-right">
+            <input type="text"   class="search-query" name="query" placeholder="Search" />
+            <input type="submit" class="btn"          value="Search" />
+          </form>
         </ul>

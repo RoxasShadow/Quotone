@@ -39,6 +39,11 @@ class Quotone
     quote ? renderize(quote, format) : '{}'
   end
 	
+  post '/api/search/:page.?:format?' do |page, format|
+    quote = Quote.all(:quote.like => "%#{params['query']}%").page(page, :per_page => 5)
+    quote ? renderize(quote, format) : '{}'
+  end
+	
   get '/api/get/latest.?:format?' do |format|
     quote = Quote.all.last
     quote ? renderize(quote, format) : '{}'
