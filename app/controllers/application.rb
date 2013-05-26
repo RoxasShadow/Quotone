@@ -48,13 +48,10 @@ class Quotone
     erb :index
   end
 	
-  get '/favorites/?:page?' do |page|
-    @page     = (page || 1).to_i
-    quotes    = Quote.all
-    @quotes   = quotes.page(@page, :per_page => 5).sort_by { |a| [-a.n_votes, -a.id] }
-    @previous = @page > 1
-    @next     = @page <= ((quotes.length - 1) / 5)
-    @title    = "Favorites (#{@page || 1})"
+  get '/favorites' do
+    # Why cannot use pagination and implement the API: #page requires DataMapper:Collection, but #sort_by returns Array
+    @quotes   = Quote.all.sort_by { |a| [-a.n_votes, -a.id] }[0..20]
+    @title    = 'Favorites'
     
     erb :index
   end

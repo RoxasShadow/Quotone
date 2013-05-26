@@ -24,11 +24,6 @@ class Quotone
     quote ? renderize(quote, format) : '{}'
   end
 	
-  get '/api/favorites/:page.?:format?' do |page, format|
-    quote = Quote.all.page(page, :per_page => 5).sort_by { |a| [-a.n_votes, -a.id] }
-    quote ? renderize(quote, format) : '{}'
-  end
-	
   get '/api/source/:source/:page.?:format?' do |source, page, format|
     quote = Quote.all(:source.like => "%#{source}%").page(page, :per_page => 5)
     quote ? renderize(quote, format) : '{}'
