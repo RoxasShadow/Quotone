@@ -34,7 +34,8 @@ class Quotone
     @quotes   = quotes.page(@page, :per_page => 5)
     @previous = @page > 1
     @next     = @page <= ((quotes.length - 1) / 5)
-    erb :index
+    
+    renderize :index
   end
 	
   get '/page/:page' do |page|
@@ -45,7 +46,7 @@ class Quotone
     @next     = @page <= ((quotes.length - 1) / 5)
     @title    = "Page #{@page}"
     
-    erb :index
+    renderize :index
   end
 	
   get '/favorites' do
@@ -53,7 +54,7 @@ class Quotone
     @quotes   = Quote.all.sort_by { |a| [-a.n_votes, -a.id] }[0..20]
     @title    = 'Favorites'
     
-    erb :index
+    renderize :index
   end
 	
   get '/source/:source/?:page?' do |source, page|
@@ -64,7 +65,7 @@ class Quotone
     @next     = @page <= (quotes.length / 5)
     @title    = "Source: #{source} (#{@page || 1})"
     
-    erb :index
+    renderize :index
   end
 	
   get '/tag/:tag/?:page?' do |tag, page|
@@ -75,7 +76,7 @@ class Quotone
     @next     = @page <= (quotes.length / 5)
     @title    = "Tag: #{tag} (#{@page || 1})"
     
-    erb :index
+    renderize :index
   end
 	
   post '/search/?:page?' do |page|
@@ -86,23 +87,23 @@ class Quotone
     @next     = @page <= (quotes.length / 5)
     @title    = "Search: #{params['query']} (#{@page || 1})"
     
-    erb :index
+    renderize :index
   end
 	
   get '/get/:id' do |id|
     @quotes = Quote.all(:id => id.to_i)
     
-    erb :index
+    renderize :index
   end
    
   not_found do
     @error = 'Content not found.'
-    erb :error
+    renderize :error
   end
 
   error do
     @error = env['sinatra.error']
-    erb :error
+    renderize :error
   end
 
 end

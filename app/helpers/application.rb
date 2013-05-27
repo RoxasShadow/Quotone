@@ -45,12 +45,30 @@ class Quotone
 		  @ip == quote.ip && quote.created_at.today?
 		end
 		
-		def renderize(quote, format)
-      case format
-        when 'xml'  then quote.to_xml  :exclude => [:ip], :methods => [:n_votes]
-        when 'csv'  then quote.to_csv  :exclude => [:ip], :methods => [:n_votes]
-        when 'yaml' then quote.to_yaml :exclude => [:ip], :methods => [:n_votes]
-        else             quote.to_json :exclude => [:ip], :methods => [:n_votes]
+		def add_visitor(quote)
+		  if quote.is_a?(DataMapper::Collection) || quote.is_a?(Array)
+        quote.each { |q|
+          q.visitors.create(:ip => @ip) unless Visitor.visited? q.id, @ip
+        }
+      elsif quote.is_a? Quote
+        quote.visitors.create(:ip => @ip) unless Visitor.visited? quote.id, @ip
+      end
+    end
+		
+		def renderize(wat, format = nil)
+		  if wat.is_a? Symbol
+		    add_visitor(@quotes) if @quotes
+		    erb wat
+		  elsif wat.nil? || (wat.is_a?(Array) && wat.empty?)
+		    '{}'
+		  else
+		    add_visitor wat
+        case format
+          when 'xml'  then wat.to_xml  :exclude => [:ip], :methods => [:n_votes, :n_visitors]
+          when 'csv'  then wat.to_csv  :exclude => [:ip], :methods => [:n_votes, :n_visitors]
+          when 'yaml' then wat.to_yaml :exclude => [:ip], :methods => [:n_votes, :n_visitors]
+          else             wat.to_json :exclude => [:ip], :methods => [:n_votes, :n_visitors]
+        end
       end
     end
 		

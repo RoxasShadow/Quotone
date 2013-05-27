@@ -17,37 +17,17 @@
 # along with Quotone.  If not, see <http://www.gnu.org/licenses/>.
 #++
 
-class Quote
+class Visitor
   include DataMapper::Resource
 
   property	:id,          Serial
   property  :ip,          String, :required => true
-  property	:source,      String, :required => true
-  property	:tags,        Text
-  property  :language,    String, :required => true
-  property	:quote,       Text,   :required => true
   property	:created_at,  DateTime
   property	:updated_at,  DateTime
-  has n, :votes,    :constraint => :destroy
-  has n, :visitors, :constraint => :destroy
+  belongs_to :quote
   
-  before :save, :purge
-  
-  attr_accessor :n_votes
-  
-  def purge
-  	self.source      = Rack::Utils.escape_html self.source
-  	self.tags        = Rack::Utils.escape_html self.tags
-  	self.quote       = Rack::Utils.escape_html self.quote
-  	self.created_at  = Time.now.utc + 2*60*60
-  end
-  
-  def n_votes
-    Vote.count(:quote_id => self.id)
-  end
-  
-  def n_visitors
-    Visitor.count(:quote_id => self.id)
+  def self.visited? id, ip
+    Visitor.count(:quote_id => id, :ip => ip) > 0
   end
   
   protected

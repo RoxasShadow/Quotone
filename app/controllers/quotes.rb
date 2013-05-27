@@ -22,7 +22,7 @@ class Quotone
   get '/new' do
     @title = 'New quote'
     
-    erb :new
+    renderize :new
   end
   
   post '/new' do
@@ -47,7 +47,7 @@ class Quotone
     @output = quote.save ? 'ok' : 'fail'
     @errors = quote.errors
     
-    erb :new
+    renderize :new
   end
   
   get '/vote/:id' do |id|
@@ -62,19 +62,19 @@ class Quotone
   get '/edit/:id' do |id|    
     unless @quote = Quote.get(id.to_i)
       @error = 'Quote not found.'
-      erb :error
+      renderize :error
     end
     
     only_for_admin! unless owner_of? @quote
     
     @title = 'Edit quote'
-    erb :new
+    renderize :new
   end
 
   post '/edit/:id' do |id|
     unless quote = Quote.get(id.to_i)
       @error = 'Quote not found.'
-      erb :error
+      renderize :error
     end
     
     only_for_admin! unless owner_of? quote
@@ -96,7 +96,7 @@ class Quotone
     
     unless updated
       @error = 'Quote editing failed.'
-      erb :error
+      renderize :error
     else
       redirect "/get/#{id}"
     end
@@ -105,14 +105,14 @@ class Quotone
   get '/delete/:id' do |id|    
     unless quote = Quote.get(id.to_i)
       @error = 'Quote not found.'
-      erb :error
+      renderize :error
     end
     
     only_for_admin! unless owner_of? quote
     
     unless quote.destroy
       @error = 'Quote deletion failed.'
-      erb :error
+      renderize :error
     else
       redirect back
     end

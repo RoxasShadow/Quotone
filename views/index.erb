@@ -7,7 +7,7 @@
                 <header>
                   <p>
                     <img alt="Language: <%= quote.language %>" src="<%= @domain %>/images/flags/<%= quote.language %>.gif" width="12" height="12" /> 
-                    From <a href="<%= @domain %>/source/<%= quote.source %>"><%= quote.source %></a> posted <%= quote.created_at.strftime('the %d/%m/%Y at %H:%M:%S') %> (#<a href="<%= @domain %>/get/<%= quote.id %>"><%= quote.id %></a> | <a href="<%= @domain %>/vote/<%= quote.id %>"><%= quote.n_votes %> votes</a>) <% if admin? || owner_of?(quote) %><a href="<%= @domain %>/delete/<%= quote.id %>" title="Delete"><i class="icon-trash"></i></a><a href="<%= @domain %>/edit/<%= quote.id %>" title="Edit"><i class="icon-edit"></i></a><% end %><br />
+                    From <a href="<%= @domain %>/source/<%= quote.source %>"><%= quote.source %></a> posted <%= quote.created_at.strftime('the %d/%m/%Y at %H:%M:%S') %> (#<a href="<%= @domain %>/get/<%= quote.id %>"><%= quote.id %></a> | votes: <a href="<%= @domain %>/vote/<%= quote.id %>"><%= quote.n_votes %></a> | views: <%= quote.n_visitors %>) <% if admin? || owner_of?(quote) %><a href="<%= @domain %>/delete/<%= quote.id %>" title="Delete"><i class="icon-trash"></i></a><a href="<%= @domain %>/edit/<%= quote.id %>" title="Edit"><i class="icon-edit"></i></a><% end %><br />
                     <img alt="Spacer" src="<%= @domain %>/images/spacer.gif" width="12" height="12" /> 
                     <% if quote.tags.split(/,/).any? %>
                       Tags: <i>

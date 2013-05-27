@@ -23,7 +23,7 @@ class Quotone
     only_for_users!
     
     @title = 'Login'
-    erb :login
+    renderize :login
   end
   
   post '/admin/login' do
@@ -35,7 +35,7 @@ class Quotone
     end
     
     @error = 'Invalid login.'
-    erb :error
+    renderize :error
   end
   
   get '/admin/logout' do

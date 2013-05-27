@@ -21,32 +21,32 @@ class Quotone
 	
   get '/api/page/:page.?:format?' do |page, format|
     quote = Quote.all.page(page, :per_page => 5)
-    quote ? renderize(quote, format) : '{}'
+    renderize quote, format
   end
 	
   get '/api/source/:source/:page.?:format?' do |source, page, format|
     quote = Quote.all(:source.like => "%#{source}%").page(page, :per_page => 5)
-    quote ? renderize(quote, format) : '{}'
+    renderize quote, format
   end
 	
   get '/api/tag/:tag/:page.?:format?' do |tag, page, format|
     quote = Quote.all(:tags.like => "%#{tag}%").page(page, :per_page => 5)
-    quote ? renderize(quote, format) : '{}'
+    renderize quote, format
   end
 	
   post '/api/search/:page.?:format?' do |page, format|
     quote = Quote.all(:quote.like => "%#{params['query']}%").page(page, :per_page => 5)
-    quote ? renderize(quote, format) : '{}'
+    renderize quote, format
   end
 	
   get '/api/get/latest.?:format?' do |format|
     quote = Quote.all.last
-    quote ? renderize(quote, format) : '{}'
+    renderize quote, format
   end
 	
   get '/api/get/:id.?:format?' do |id, format|
     quote = Quote.get(id.to_i)
-    quote ? renderize(quote, format) : '{}'
+    renderize quote, format
   end
 
 end
