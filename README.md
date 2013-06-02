@@ -7,8 +7,7 @@ Read-only and multi-format APIs are available.
 Running at http://www.quotone.unsigned.it and compatible with ruby-1.8.7 (just because it is running on my server).
 
 ```
-sudo gem install thin
-sudo gem install bundler
+gem install bundler
 git clone https://github.com/RoxasShadow/Quotone
 cd Quotone
 # Configure config/config.yml for admin and database login (you can use another DBMS however, give a look on datamapper.org)
