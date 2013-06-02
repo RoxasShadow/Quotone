@@ -8,7 +8,7 @@
     <link href="<%= @domain %>/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
     <link href="<%= @domain %>/css/style.css"                              rel="stylesheet" />
     <link href="<%= @domain %>/css/sharrre.css"                            rel="stylesheet" />
-    <link href="<%= @domain %>/css/widearea.css"                            rel="stylesheet" />
+    <link href="<%= @domain %>/css/widearea.css"                           rel="stylesheet" />
     
     <meta name="description" content="<% if @quotes.one? %><%= @quotes.first.quote[0..300] %><% else %>Quotone allows you to share with the world your favorite quotes from novels, movies, anime, manga, comics, videogames and so on in a completely anonimous way without any type of registration.<% end %>" />
     <meta name="robots"      content="index,follow" />
@@ -82,7 +82,7 @@
           <% end %>
           
           <form action="<%= @domain %>/search" method="post" class="navbar-search pull-right">
-            <input type="text"   class="search-query" name="query" placeholder="Search" />
+            <input type=text class="search-query" name="query" placeholder="Search" />
             <%= csrf_tag %>
           </form>
         </ul>

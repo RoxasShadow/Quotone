@@ -26,6 +26,7 @@ require 'dm-serializer'
 
 require 'rack/csrf'
 require 'digest/md5'
+require 'html_press'
 
 class Quotone < Sinatra::Base
   
