@@ -1,9 +1,9 @@
 <%= erb :'partial/head' %>
       
         <form action="<%= @domain %>/admin/login" method="post" class="form">
-          <input type="text"     class="input-block-level" name="username" placeholder="username" /><br />
-          <input type="password" class="input-block-level" name="password" placeholder="password" /><br />
-          <input type="submit"   class="btn btn-medium"    value="Login" />
+          <input type=text     class="input-block-level" name="username" placeholder="username" /><br />
+          <input type=password class="input-block-level" name="password" placeholder="password" /><br />
+          <input type=submit   class="btn btn-medium"    value="Login" />
           <%= csrf_tag %>
         </form>
         

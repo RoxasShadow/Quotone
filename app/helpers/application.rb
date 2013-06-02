@@ -58,7 +58,11 @@ class Quotone
 		def renderize(wat, format = nil)
 		  if wat.is_a? Symbol
 		    add_visitor(@quotes) if @quotes
-		    HtmlPress.press(erb wat)
+		    if settings.minify
+		      HtmlPress.press(erb wat)
+		    else
+		      erb wat
+		    end
 		  elsif wat.nil? || (wat.is_a?(Array) && wat.empty?)
 		    '{}'
 		  else

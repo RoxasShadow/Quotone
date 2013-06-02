@@ -39,6 +39,7 @@ class Quotone < Sinatra::Base
     set :username, config['admin']['username']
     set :password, config['admin']['password']
     set :token,    config['admin']['token']
+    set :minify,   config['miscs']['minify'] == 'enable'
     
     use Rack::Session::Cookie,
       :path   => '/',

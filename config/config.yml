@@ -10,5 +10,6 @@ database:
   database: quotone
   
 miscs:
+  minify: enable
   cookie: dafuq are u doing? pls stahp
   csrf:   _csrf
