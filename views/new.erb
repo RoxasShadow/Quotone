@@ -7,7 +7,7 @@
       <% else %>
         <form action="<%= @current_url %>" method="post" class="form">
           <input type=text class="input-block-level"   name="source" placeholder="Source" value="<%= @quote.source if @quote %>" />
-          <input type=text class="input-block-level"   name="tags"   placeholder="Tags"   value="<%= @quote.tags if @quote %>" title="Divide each tag by a comma (,)" />
+          <input type=text class="input-block-level"   name="tags"   placeholder="Tags"   value="<%= @quote.tags   if @quote %>" title="Divide each tag by a comma (,)" />
           <textarea        class="input-block-level"   name="quote"  placeholder="Quote"  data-widearea="enable" rows="10"><%= @quote.quote if @quote %></textarea>
           <%= csrf_tag %>
           <input type=submit class="btn btn-medium" value="Send" />
