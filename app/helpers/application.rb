@@ -58,6 +58,8 @@ class Quotone
 		def renderize(wat, format = nil)
 		  if wat.is_a? Symbol
 		    add_visitor(@quotes) if @quotes
+		    @thumbnails = get_thumbnail("#{@quotes.first.source} #{@quotes.first.tags}") if settings.thumbnails && @quotes.one?
+		    
 		    if settings.minify
 		      require 'html_press'
 		      HtmlPress.press(erb wat)
@@ -84,9 +86,7 @@ class Quotone
       
       url = "http://ajax.googleapis.com/ajax/services/search/images?rsz=large&start=#{position}&v=1.0&q=#{CGI.escape(keyword)}"
       json_results = open(url) {|f| f.read };
-      results = JSON.parse(json_results)
-      image_array = results['responseData']['results']
-      return image_array.first['unescapedUrl'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
+      return JSON.parse(json_results)['responseData']['results'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
     end
 		
 	end
