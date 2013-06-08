@@ -17,8 +17,16 @@
     <meta property="og:url"         content="<%= @current_url %>" />
     <meta property="og:site_name"   content="Quotone" />
     <meta property="og:type"        content="blog" />
-    <meta property="og:image"       content="<% if @quotes.one? %><%= get_thumbnail("#{@quotes.first.source} #{@quotes.first.tags}") %><% else %><%= @domain %>/images/logo.png<% end %>" />
     <meta property="og:description" content="<% if @quotes.one? %><%= @quotes.first.quote[0..300] %><% else %>Quotone allows you to share with the world your favorite quotes from novels, movies, anime, manga, comics, videogames and so on in a completely anonimous way without any type of registration.<% end %>" />
+    
+    <%= if @quotes.one? %>
+      <meta property="og:image" content="<%= get_thumbnail("#{@quotes.first.source} #{@quotes.first.tags}", 0) %>" />
+      <meta property="og:image" content="<%= get_thumbnail("#{@quotes.first.source} #{@quotes.first.tags}", 1) %>" />
+      <meta property="og:image" content="<%= get_thumbnail("#{@quotes.first.source} #{@quotes.first.tags}", 2) %>" />
+      <meta property="og:image" content="<%= get_thumbnail("#{@quotes.first.source} #{@quotes.first.tags}", 3) %>" />
+    <% else %>
+      <meta property="og:image" content="<%= @domain %>/images/logo.png" />
+    <% end %>
     
     <script type="text/javascript" src="<%= @domain %>/javascript/jquery.js"></script>
     <script type="text/javascript" src="<%= @domain %>/javascript/jquery.sharrre.js"></script>
