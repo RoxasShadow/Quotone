@@ -10,6 +10,7 @@ database:
   database: xxx
   
 miscs:
-  minify: enable
-  cookie: dafuq are u doing? pls stahp
-  csrf:   _csrf
+  minify:     enable
+  thumbnails: enable
+  cookie:     dafuq are u doing? pls stahp
+  csrf:       _csrf

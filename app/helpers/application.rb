@@ -41,7 +41,7 @@ class Quotone
 		  halt [ 401, 'Not Authorized' ] if admin?
 		end
 		
-		def owner_of? quote
+		def owner_of?(quote)
 		  @ip == quote.ip && quote.created_at.today?
 		end
 		
@@ -59,6 +59,7 @@ class Quotone
 		  if wat.is_a? Symbol
 		    add_visitor(@quotes) if @quotes
 		    if settings.minify
+		      require 'html_press'
 		      HtmlPress.press(erb wat)
 		    else
 		      erb wat
@@ -74,6 +75,18 @@ class Quotone
           else             wat.to_json :exclude => [:ip], :methods => [:n_votes, :n_visitors]
         end
       end
+    end
+    
+    def get_thumbnail(keyword, position = 0)
+      require 'cgi'
+      require 'open-uri'
+      require 'json'
+      
+      url = "http://ajax.googleapis.com/ajax/services/search/images?rsz=large&start=#{position}&v=1.0&q=#{CGI.escape(keyword)}"
+      json_results = open(url) {|f| f.read };
+      results = JSON.parse(json_results)
+      image_array = results['responseData']['results']
+      return image_array.first['unescapedUrl'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
     end
 		
 	end

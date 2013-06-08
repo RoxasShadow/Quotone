@@ -26,7 +26,6 @@ require 'dm-serializer'
 
 require 'rack/csrf'
 require 'digest/md5'
-require 'html_press'
 
 class Quotone < Sinatra::Base
   
@@ -36,10 +35,11 @@ class Quotone < Sinatra::Base
   configure {
     set :method_override, true
     
-    set :username, config['admin']['username']
-    set :password, config['admin']['password']
-    set :token,    config['admin']['token']
-    set :minify,   config['miscs']['minify'] == 'enable'
+    set :username,   config['admin']['username']
+    set :password,   config['admin']['password']
+    set :token,      config['admin']['token']
+    set :minify,     config['miscs']['minify']     == 'enable'
+    set :thumbnails, config['miscs']['thumbnails'] == 'enable'
     
     use Rack::Session::Cookie,
       :path   => '/',

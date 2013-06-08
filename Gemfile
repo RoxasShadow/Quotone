@@ -10,6 +10,12 @@ gem 'dm-serializer'
 
 gem 'rack_csrf'
 
-gem 'execjs'
-gem 'therubyracer'
-gem 'html_press'
+# Following gems are optional. You can delete them if you are sure you don't use in config/config.yml
+
+  # Minify
+  gem 'execjs'
+  gem 'therubyracer'
+  gem 'html_press'
+  
+  # Thumbnails
+  gem 'json'

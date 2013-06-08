@@ -10,7 +10,7 @@ Running at http://www.quotone.unsigned.it and compatible with ruby-1.8.7 (just b
 gem install bundler
 git clone https://github.com/RoxasShadow/Quotone
 cd Quotone
-# Configure config/config.yml for admin and database login (you can use another DBMS however, give a look on datamapper.org)
+# Configure config/config.yml for admin and database login (you can use another DBMS however, give a look at http://datamapper.org/getting-started.html)
 bundle install
 thin -R config.ru -p 4567 start
 # Go to http://localhost:4567
