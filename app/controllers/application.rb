@@ -26,6 +26,7 @@ class Quotone
     @domain       = "http://#{request.env['HTTP_HOST']}"
     @admin_email  = 'webmaster@giovannicapuano.net'
     @ip           = request.ip
+    @useragent    = request.user_agent
   end
 	
   get '/' do

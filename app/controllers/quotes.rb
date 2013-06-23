@@ -51,6 +51,7 @@ class Quotone
   end
   
   get '/vote/:id' do |id|
+		redirect back if exclude_ua? settings.excluded_ua, @useragent
     redirect back unless quote = Quote.get(id.to_i)
     
     redirect back if Vote.count(:quote_id => quote.id, :ip => @ip) > 0

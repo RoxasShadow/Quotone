@@ -45,7 +45,20 @@ class Quotone
 		  @ip == quote.ip && quote.created_at.today?
 		end
 		
+		def exclude_ua?(excluded_ua, useragent)
+		  excluded_ua.each { |ua|
+		    if ua.start_with?('*') && ua.end_with?('*')
+		      return true if useragent.match /#{ua[1..-2]}/i
+		    else
+		      return true if useragent.match ua
+		    end
+		  }
+		  false
+	  end
+		
 		def add_visitor(quote)
+		  return if exclude_ua? settings.excluded_ua, @useragent
+		  
 		  if quote.is_a?(DataMapper::Collection) || quote.is_a?(Array)
         quote.each { |q|
           q.visitors.create(:ip => @ip) unless Visitor.visited? q.id, @ip

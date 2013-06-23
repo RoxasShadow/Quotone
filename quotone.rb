@@ -35,11 +35,12 @@ class Quotone < Sinatra::Base
   configure {
     set :method_override, true
     
-    set :username,   config['admin']['username']
-    set :password,   config['admin']['password']
-    set :token,      config['admin']['token']
-    set :minify,     config['miscs']['minify']     == 'enable'
-    set :thumbnails, config['miscs']['thumbnails'] == 'enable'
+    set :username,    config['admin']['username']
+    set :password,    config['admin']['password']
+    set :token,       config['admin']['token']
+    set :minify,      config['miscs']['minify']     == 'enable'
+    set :thumbnails,  config['miscs']['thumbnails'] == 'enable'
+    set :excluded_ua, config['miscs']['excluded_ua']
     
     use Rack::Session::Cookie,
       :path   => '/',
