@@ -49,6 +49,10 @@ class Quotone
       settings.description
     end
     
+    def per_page
+      settings.per_page
+    end
+    
     def thumbnails?
       settings.thumbnails
     end

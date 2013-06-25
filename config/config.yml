@@ -10,6 +10,7 @@ database:
   database: xxx
   
 miscs:
+  per_page:    5
   minify:      disable
   thumbnails:  enable
   cookie:      dafuq are u doing? pls stahp

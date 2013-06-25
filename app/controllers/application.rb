@@ -32,9 +32,9 @@ class Quotone
   get '/' do
     @page     = 1
     quotes    = Quote.all
-    @quotes   = quotes.page(@page, :per_page => 5)
+    @quotes   = quotes.page(@page, :per_page => per_page)
     @previous = @page > 1
-    @next     = @page <= ((quotes.length - 1) / 5)
+    @next     = @page <= ((quotes.length - 1) / per_page)
     
     renderize :index
   end
@@ -42,9 +42,9 @@ class Quotone
   get '/page/:page' do |page|
     @page     = page.to_i
     quotes    = Quote.all
-    @quotes   = quotes.page(@page, :per_page => 5)
+    @quotes   = quotes.page(@page, :per_page => per_page)
     @previous = @page > 1
-    @next     = @page <= ((quotes.length - 1) / 5)
+    @next     = @page <= ((quotes.length - 1) / per_page)
     @title    = "Page #{@page}"
     
     renderize :index
@@ -61,9 +61,9 @@ class Quotone
   get '/source/:source/?:page?' do |source, page|
     @page     = (page || 1).to_i
     quotes    = Quote.all(:source.like => "%#{source}%")
-    @quotes   = quotes.page(@page, :per_page => 5)
+    @quotes   = quotes.page(@page, :per_page => per_page)
     @previous = @page > 1
-    @next     = @page <= (quotes.length / 5)
+    @next     = @page <= (quotes.length / per_page)
     @title    = "Source: #{source} (#{@page || 1})"
     
     renderize :index
@@ -72,9 +72,9 @@ class Quotone
   get '/tag/:tag/?:page?' do |tag, page|
     @page     = (page || 1).to_i
     quotes    = Quote.all(:tags.like => "%#{tag}%")
-    @quotes   = quotes.page(@page, :per_page => 5)
+    @quotes   = quotes.page(@page, :per_page => per_page)
     @previous = @page > 1
-    @next     = @page <= (quotes.length / 5)
+    @next     = @page <= (quotes.length / per_page)
     @title    = "Tag: #{tag} (#{@page || 1})"
     
     renderize :index
@@ -83,9 +83,9 @@ class Quotone
   post '/search/?:page?' do |page|
     @page     = (page || 1).to_i
     quotes    = Quote.all(:quote.like => "%#{params['query']}%")
-    @quotes   = quotes.page(@page, :per_page => 5)
+    @quotes   = quotes.page(@page, :per_page => per_page)
     @previous = @page > 1
-    @next     = @page <= (quotes.length / 5)
+    @next     = @page <= (quotes.length / per_page)
     @title    = "Search: #{params['query']} (#{@page || 1})"
     
     renderize :index
