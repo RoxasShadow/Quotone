@@ -10,17 +10,17 @@
     <link href="<%= @domain %>/css/sharrre.css"                            rel="stylesheet" />
     <link href="<%= @domain %>/css/widearea.css"                           rel="stylesheet" />
     
-    <meta name="description" content="<% if @quotes.one? %><%= @quotes.first.quote[0..300] %><% else %>Quotone allows you to share with the world your favorite quotes from novels, movies, anime, manga, comics, videogames and so on in a completely anonimous way without any type of registration.<% end %>" />
+    <meta name="description" content="<%= @quotes.one? ? @quotes.first.description : get_description %>" />
     <meta name="robots"      content="index,follow" />
 
     <meta property="og:title"       content="<% if @title %><%= @title %> | <% else %><% if @quotes.one? %><%= @quotes.first.quote[0..50] %>... | <% end %><% end %>Quotone" />
     <meta property="og:url"         content="<%= @current_url %>" />
     <meta property="og:site_name"   content="Quotone" />
     <meta property="og:type"        content="blog" />
-    <meta property="og:description" content="<% if @quotes.one? %><%= @quotes.first.quote[0..300] %><% else %>Quotone allows you to share with the world your favorite quotes from novels, movies, anime, manga, comics, videogames and so on in a completely anonimous way without any type of registration.<% end %>" />
+    <meta property="og:description" content="<%= @quotes.one? ? @quotes.first.description : get_description %>" />
     
-    <% if @quotes.one? && @thumbnails %>
-      <% @thumbnails.each { |t| %>
+    <% if @quotes.one? && thumbnails? %>
+      <% get_thumbnail(@quotes.first).each { |t| %>
         <meta property="og:image" content="<%= t['unescapedUrl'] %>" />
       <% } %>
     <% else %>

@@ -1,6 +1,6 @@
 Quotone allows you to share with the world your favorite quotes from novels, movies, anime, manga, comics, videogames and so on in a completely anonimous way without any type of registration.
 
-Each quote can be voted and shared on Facebook, Twitter and Google+, and you can search for others that deal with the same topic - through the tags - or others from the same work.
+Each quote has a viewer counter, can be voted and can be shared on Facebook, Twitter and Google+, and you can search for others that deal with the same topic (through search or tags) or others from the same work.
 
 Read-only and multi-format APIs are available.
 

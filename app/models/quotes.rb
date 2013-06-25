@@ -46,6 +46,10 @@ class Quote
     Vote.count(:quote_id => self.id)
   end
   
+  def description
+    self.quote[0..300].gsub(/\r\n?/, ' ').strip
+  end
+  
   def n_visitors
     Visitor.count(:quote_id => self.id)
   end

@@ -41,6 +41,7 @@ class Quotone < Sinatra::Base
     set :minify,      config['miscs']['minify']     == 'enable'
     set :thumbnails,  config['miscs']['thumbnails'] == 'enable'
     set :excluded_ua, config['miscs']['excluded_ua']
+    set :description, config['miscs']['description']
     
     use Rack::Session::Cookie,
       :path   => '/',

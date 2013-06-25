@@ -44,6 +44,14 @@ class Quotone
 		def owner_of?(quote)
 		  @ip == quote.ip && quote.created_at.today?
 		end
+    
+    def get_description
+      settings.description
+    end
+    
+    def thumbnails?
+      settings.thumbnails
+    end
 		
 		def exclude_ua?(excluded_ua, useragent)
 		  excluded_ua.each { |ua|
@@ -71,7 +79,6 @@ class Quotone
 		def renderize(wat, format = nil)
 		  if wat.is_a? Symbol
 		    add_visitor(@quotes) if @quotes
-		    @thumbnails = get_thumbnail("#{@quotes.first.source} #{@quotes.first.tags}") if settings.thumbnails && @quotes.one?
 		    
 		    if settings.minify
 		      require 'html_press'
@@ -92,12 +99,13 @@ class Quotone
       end
     end
     
-    def get_thumbnail(keyword, position = 0)
+    def get_thumbnail(quote, position = 0)
       require 'cgi'
       require 'open-uri'
       require 'json'
       
-      url = "http://ajax.googleapis.com/ajax/services/search/images?rsz=large&start=#{position}&v=1.0&q=#{CGI.escape(keyword)}"
+      keyword      = "#{quote.source} #{quote.tags}"
+      url          = "http://ajax.googleapis.com/ajax/services/search/images?rsz=large&start=#{position}&v=1.0&q=#{CGI.escape(keyword)}"
       json_results = open(url) {|f| f.read };
       return JSON.parse(json_results)['responseData']['results'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
     end
