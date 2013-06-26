@@ -20,7 +20,7 @@
 class Quote
   include DataMapper::Resource
 
-  property	:id,          Serial
+  property  :id,          Serial
   property  :ip,          String, :required => true
   property	:source,      String, :required => true
   property	:tags,        Text
@@ -36,8 +36,8 @@ class Quote
   attr_accessor :n_votes
   
   def purge
-  	self.source      = Rack::Utils.escape_html self.source
-  	self.tags        = Rack::Utils.escape_html self.tags
+  	self.source      = Rack::Utils.escape_html self.source.gsub(/\//, ' ').gsub(/#/, ' ')
+  	self.tags        = Rack::Utils.escape_html self.tags.gsub(/\//, ' ').gsub(/#/, ' ')
   	self.quote       = Rack::Utils.escape_html self.quote
   	
   	self.created_at  = Time.now.utc + 2*60*60
