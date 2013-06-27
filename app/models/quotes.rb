@@ -21,11 +21,12 @@ class Quote
   include DataMapper::Resource
 
   property  :id,          Serial
-  property  :ip,          String, :required => true
-  property	:source,      String, :required => true
+  property  :ip,          String,  :required => true
+  property	:source,      String,  :required => true
   property	:tags,        Text
-  property  :language,    String, :required => true
-  property	:quote,       Text,   :required => true
+  property  :language,    String,  :required => true
+  property	:quote,       Text,    :required => true
+  property  :spoiler,     Boolean, :default => false
   property	:created_at,  DateTime
   property	:updated_at,  DateTime
   has n, :votes,    :constraint => :destroy
@@ -47,12 +48,16 @@ class Quote
     Vote.count(:quote_id => self.id)
   end
   
+  def n_visitors
+    Visitor.count(:quote_id => self.id)
+  end
+  
   def description
     self.quote[0..300].gsub(/\r\n?/, ' ').strip
   end
   
-  def n_visitors
-    Visitor.count(:quote_id => self.id)
+  def spoiler?
+    self.spoiler
   end
   
   protected

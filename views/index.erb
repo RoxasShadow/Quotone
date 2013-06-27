@@ -23,7 +23,9 @@
                 
                 <article>
                   <p>
-                    <%= quote.quote.gsub(/\n/, "<br />\n") %>
+                    <%= '<span class="spoiler">' if quote.spoiler? %>
+                    <%= quote.quote.nl2br %>
+                    <%= '</span>' if quote.spoiler? %>
                   </p>
                 </article>
                 <footer class="share">

@@ -33,3 +33,11 @@ body {
   margin-bottom: 15px;
   padding: 7px 9px;
 }
+
+.spoiler {
+  background: black;
+}
+
+.spoiler:hover {
+  background: white;
+}

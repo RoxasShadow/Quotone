@@ -27,11 +27,11 @@ class Quotone
   
   post '/new' do
     @title = 'New quote'
-    
     inputs = {
-      :source => params[:source],
-      :tags   => params[:tags],
-      :quote  => params[:quote],
+      :source  => params[:source],
+      :tags    => params[:tags],
+      :quote   => params[:quote],
+      :spoiler => params[:spoiler]
     }
     
     inputs.delete_if { |key, val| val.nil? || val.empty? }
@@ -41,7 +41,8 @@ class Quotone
       :source   => inputs[:source],
       :tags     => inputs[:tags],
       :quote    => inputs[:quote],
-      :language => @language
+      :language => @language,
+      :spoiler  => inputs[:spoiler] == 'on'
     )
     
     @output = quote.save ? 'ok' : 'fail'
@@ -81,9 +82,10 @@ class Quotone
     only_for_admin! unless owner_of? quote
     
     inputs = {
-      :source => params[:source],
-      :tags   => params[:tags],
-      :quote  => params[:quote],
+      :source   => params[:source],
+      :tags     => params[:tags],
+      :quote    => params[:quote],
+      :spoiler  => params[:spoiler]
     }
     
     inputs.delete_if { |key, val| val.nil? || val.empty? }
@@ -92,7 +94,8 @@ class Quotone
       :source   => inputs[:source],
       :tags     => inputs[:tags],
       :quote    => inputs[:quote],
-      :language => @language
+      :language => @language,
+      :spoiler  => inputs[:spoiler] == 'on'
     )
     
     unless updated

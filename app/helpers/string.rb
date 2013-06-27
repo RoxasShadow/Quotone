@@ -29,4 +29,8 @@ class String
     return (url.last.numeric? ? url[0..-2] : url[0..-1]).join('/')
   end
   
+  def nl2br
+    self.gsub(/\n/, "<br />\n")
+  end
+  
 end
