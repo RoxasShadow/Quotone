@@ -108,7 +108,7 @@ class Quotone
       require 'open-uri'
       require 'json'
       
-      keyword      = "#{quote.source} #{quote.tags}".gsub(/&#x2F;/, '/')
+      keyword      = "#{quote.source} #{quote.tags.split(/,/).take(4).join(',')}".gsub(/&#x2F;/, '/')
       url          = "http://ajax.googleapis.com/ajax/services/search/images?rsz=large&start=#{position}&v=1.0&q=#{Rack::Utils.escape_path(keyword)}"
       json_results = open(url) {|f| f.read }
       return JSON.parse(json_results)['responseData']['results'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
