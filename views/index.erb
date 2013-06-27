@@ -23,9 +23,9 @@
                 
                 <article>
                   <p>
-                    <%= '<span class="spoiler">' if quote.spoiler? %>
+                    <%= '<span class="spoiler">' if !@quotes.one? && quote.spoiler? %>
                     <%= quote.quote.nl2br %>
-                    <%= '</span>' if quote.spoiler? %>
+                    <%= '</span>' if !@quotes.one? && quote.spoiler? %>
                   </p>
                 </article>
                 <footer class="share">
