@@ -2,6 +2,7 @@
 <html xmlns:fb="http://ogp.me/ns/fb#">
   <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    
     <title><% if @title %><%= @title %> | <% else %><% if @quotes.one? %><%= @quotes.first.title %>... | <% end %><% end %>Quotone</title>
     
     <link href="<%= @domain %>/bootstrap/css/bootstrap.min.css"            rel="stylesheet" />
