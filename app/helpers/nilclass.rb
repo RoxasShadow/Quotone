@@ -18,7 +18,13 @@
 #++
 
 class NilClass
+
   def one?
     false
   end
+  
+  def gsub(s, r)
+    self
+  end
+  
 end

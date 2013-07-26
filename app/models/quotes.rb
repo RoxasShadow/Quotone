@@ -52,6 +52,10 @@ class Quote
     Visitor.count(:quote_id => self.id)
   end
   
+  def title
+    self.quote[0..50].gsub(/\r\n?/, ' ').strip
+  end
+  
   def description
     self.quote[0..300].gsub(/\r\n?/, ' ').strip
   end
