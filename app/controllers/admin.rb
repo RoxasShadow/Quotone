@@ -31,7 +31,7 @@ class Quotone
     
     if params['username'] == settings.username && params['password'] == settings.password
       set_cookie settings.username, settings.token
-      redirect '/'
+      redirect ?/
     end
     
     @error = 'Invalid login.'
@@ -42,7 +42,7 @@ class Quotone
     only_for_admin!
     
     delete_cookie settings.username
-    redirect '/'
+    redirect ?/
   end
   
 end

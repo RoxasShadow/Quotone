@@ -45,7 +45,7 @@ class Quotone < Sinatra::Base
     set :per_page,    config['miscs']['per_page']
     
     use Rack::Session::Cookie,
-      :path   => '/',
+      :path   => ?/,
       :secret => config['miscs']['cookie']
   
     use Rack::Csrf,

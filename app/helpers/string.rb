@@ -24,9 +24,9 @@ class String
 	end
 	
   def delete_page_by_url
-    url = self.split(/\//)
+    url = self.split ?/
     return url.last if url.empty?
-    return (url.last.numeric? ? url[0..-2] : url[0..-1]).join('/')
+    return (url.last.numeric? ? url[0..-2] : url[0..-1]).join(?/)
   end
   
   def nl2br

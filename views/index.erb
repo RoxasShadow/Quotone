@@ -9,9 +9,9 @@
                     <img alt="Language: <%= quote.language %>" src="<%= @domain %>/images/flags/<%= quote.language %>.gif" width="12" height="12" /> 
                     From <a href="<%= @domain %>/source/<%= quote.source.gsub(/\s/, '%20') %>"><%= quote.source %></a> posted <%= quote.created_at.strftime('the %d/%m/%Y at %H:%M:%S') %> (#<a href="<%= @domain %>/get/<%= quote.id %>"><%= quote.id %></a> | votes: <a href="<%= @domain %>/vote/<%= quote.id %>"><%= quote.n_votes %></a> | views: <%= quote.n_visitors %>) <% if admin? || owner_of?(quote) %><a href="<%= @domain %>/delete/<%= quote.id %>" title="Delete"><i class="icon-trash"></i></a><a href="<%= @domain %>/edit/<%= quote.id %>" title="Edit"><i class="icon-edit"></i></a><% end %><br />
                     <img alt="Spacer" src="<%= @domain %>/images/spacer.gif" width="12" height="12" /> 
-                    <% if quote.tags.split(/,/).any? %>
+                    <% if quote.tags.split(?,).any? %>
                       Tags: <i>
-                      <% quote.tags.split(/,/).each { |tag| %>
+                      <% quote.tags.split(?,).each { |tag| %>
                         <a href="<%= @domain %>/tag/<%= tag.strip.gsub(/\s/, '%20') %>"><%= tag %></a>
                       <% } %>
                       </i>
@@ -41,8 +41,8 @@
         <% if @previous || @next %>
           <div id="pagination" class="text-center">
               <p>
-                <% if @previous%><a href="<%= @domain %><%= @current_page != '/' ? @current_page.delete_page_by_url : '/page' %>/<%= @page - 1 %>">Previous</a><% end %>
-                <% if @next %><a href="<%= @domain %><%= @current_page    != '/' ? @current_page.delete_page_by_url : '/page' %>/<%= @page + 1 %>">Next</a><% end %>
+                <% if @previous%><a href="<%= @domain %><%= @current_page != ?/ ? @current_page.delete_page_by_url : '/page' %>/<%= @page - 1 %>">Previous</a><% end %>
+                <% if @next %><a    href="<%= @domain %><%= @current_page != ?/ ? @current_page.delete_page_by_url : '/page' %>/<%= @page + 1 %>">Next</a><% end %>
               </p>
           </div>
         <% end %>

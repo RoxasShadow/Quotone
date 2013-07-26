@@ -4,7 +4,7 @@ Each quote has a viewer counter, can be voted and can be shared on Facebook, Twi
 
 Read-only and multi-format APIs are available.
 
-Running at http://www.quotone.unsigned.it and compatible with ruby-1.8.7 (just because it is running on my server).
+Running at http://quotone.unsigned.it.
 
 ```
 gem install bundler
