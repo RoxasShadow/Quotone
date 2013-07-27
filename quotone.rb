@@ -26,8 +26,11 @@ require 'dm-serializer'
 
 require 'rack/csrf'
 require 'digest/md5'
+require 'sinatra/synchrony'
 
 class Quotone < Sinatra::Base
+  register Sinatra::Synchrony
+  Sinatra::Synchrony.overload_tcpsocket!
   
   config = YAML::load File.read('config/config.yml')
   DataMapper.setup(:default, "mysql://#{config['database']['username']}:#{config['database']['password']}@#{config['database']['hostname']}/#{config['database']['database']}")

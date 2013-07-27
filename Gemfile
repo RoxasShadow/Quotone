@@ -9,6 +9,7 @@ gem 'dm-pager'
 gem 'dm-serializer'
 
 gem 'rack_csrf'
+gem 'sinatra-synchrony'
 
 # Following gems are optional. You can delete them if you are sure you don't use in config/config.yml
 
