@@ -21,8 +21,8 @@ class Quotone
 
   before do
     @language     = (request.env['HTTP_ACCEPT_LANGUAGE'] || 'en')[0..1]
-    @current_page = request.env['REQUEST_URI'].gsub(/\/\//, ?/)
-    @current_url  = "http://#{request.env['HTTP_HOST']}#{request.env['REQUEST_URI']}".gsub(/\/\//, ?/)
+    @current_page = request.env['REQUEST_URI']
+    @current_url  = "http://#{request.env['HTTP_HOST']}#{request.env['REQUEST_URI']}"
     @domain       = "http://#{request.env['HTTP_HOST']}"
     @admin_email  = 'webmaster@giovannicapuano.net'
     @ip           = request.ip

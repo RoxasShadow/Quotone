@@ -15,7 +15,7 @@
     <meta name="robots"      content="index,follow" />
 
     <meta property="og:title"       content="<% if @title %><%= @title %> | <% else %><% if @quotes.one? %><%= @quotes.first.title %>... | <% end %><% end %>Quotone" />
-    <meta property="og:url"         content="<%= @current_url %>" />
+    <meta property="og:url"         content="<%= @current_url.gsub(/\/\//, ?/) %>" />
     <meta property="og:site_name"   content="Quotone" />
     <meta property="og:type"        content="blog" />
     <meta property="og:description" content="<%= @quotes.one? ? @quotes.first.description : get_description %>" />
@@ -41,7 +41,7 @@
     <div class="container main">
       
         <ul class="nav nav-tabs">
-          <% if @current_page == ?/ || @current_page.start_with?('/page') %>
+          <% if @current_page.gsub(/\/\//, ?/) == ?/ || @current_page.gsub(/\/\//, ?/).start_with?('/page') %>
             <li class="active">
               <a href="<%= @domain %>/">Index</a>
             </li>
@@ -51,7 +51,7 @@
             <li>
               <a href="<%= @domain %>/favorites">Favorites</a>
             </li>
-          <% elsif @current_page.start_with?('/new') %>
+          <% elsif @current_page.gsub(/\/\//, ?/).start_with?('/new') %>
             <li>
               <a href="<%= @domain %>/">Index</a>
             </li>
@@ -61,7 +61,7 @@
             <li>
               <a href="<%= @domain %>/favorites">Favorites</a>
             </li>
-          <% elsif @current_page.start_with?('/favorites') %>
+          <% elsif @current_page.gsub(/\/\//, ?/).start_with?('/favorites') %>
             <li>
               <a href="<%= @domain %>/">Index</a>
             </li>
