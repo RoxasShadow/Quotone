@@ -19,31 +19,31 @@
 
 class Quotone
 
-	helpers do
-		
-		def csrf_token
-			Rack::Csrf.csrf_token(env)
-		end
-		
-		def csrf_tag
-			Rack::Csrf.csrf_tag(env)
-		end
-		
-		def admin?
-		  get_cookie(settings.username) == settings.token
-		end
-		
-		def only_for_admin!
-		  halt [ 401, 'Not Authorized' ] unless admin?
-		end
-		
-		def only_for_users!
-		  halt [ 401, 'Not Authorized' ] if admin?
-		end
-		
-		def owner_of?(quote)
-		  @ip == quote.ip && quote.created_at.today?
-		end
+  helpers do
+    
+    def csrf_token
+      Rack::Csrf.csrf_token(env)
+    end
+    
+    def csrf_tag
+      Rack::Csrf.csrf_tag(env)
+    end
+    
+    def admin?
+      get_cookie(settings.username) == settings.token
+    end
+    
+    def only_for_admin!
+      halt [ 401, 'Not Authorized' ] unless admin?
+    end
+    
+    def only_for_users!
+      halt [ 401, 'Not Authorized' ] if admin?
+    end
+    
+    def owner_of?(quote)
+      @ip == quote.ip && quote.created_at.today?
+    end
     
     def get_description
       settings.description
@@ -56,22 +56,22 @@ class Quotone
     def thumbnails?
       settings.thumbnails
     end
-		
-		def exclude_ua?(excluded_ua, useragent)
-		  excluded_ua.each { |ua|
-		    if ua.start_with?('*') && ua.end_with?('*')
-		      return true if useragent.match /#{ua[1..-2]}/i
-		    else
-		      return true if useragent.match ua
-		    end
-		  }
-		  false
-	  end
-		
-		def add_visitor(quote)
-		  return if exclude_ua? settings.excluded_ua, @useragent
-		  
-		  if quote.is_a?(DataMapper::Collection) || quote.is_a?(Array)
+    
+    def exclude_ua?(excluded_ua, useragent)
+      excluded_ua.each { |ua|
+        if ua.start_with?('*') && ua.end_with?('*')
+          return true if useragent.match /#{ua[1..-2]}/i
+        else
+          return true if useragent.match ua
+        end
+      }
+      false
+    end
+    
+    def add_visitor(quote)
+      return if exclude_ua? settings.excluded_ua, @useragent
+      
+      if quote.is_a?(DataMapper::Collection) || quote.is_a?(Array)
         quote.each { |q|
           q.visitors.create(:ip => @ip) unless Visitor.visited? q.id, @ip
         }
@@ -79,21 +79,21 @@ class Quotone
         quote.visitors.create(:ip => @ip) unless Visitor.visited? quote.id, @ip
       end
     end
-		
-		def renderize(wat, format = nil)
-		  if wat.is_a? Symbol
-		    add_visitor(@quotes) if @quotes
-		    
-		    if settings.minify
-		      require 'html_press'
-		      HtmlPress.press(erb wat)
-		    else
-		      erb wat
-		    end
-		  elsif wat.nil? || (wat.is_a?(Array) && wat.empty?)
-		    '{}'
-		  else
-		    add_visitor wat
+    
+    def renderize(wat, format = nil)
+      if wat.is_a? Symbol
+        add_visitor(@quotes) if @quotes
+        
+        if settings.minify
+          require 'html_press'
+          HtmlPress.press(erb wat)
+        else
+          erb wat
+        end
+      elsif wat.nil? || (wat.is_a?(Array) && wat.empty?)
+        '{}'
+      else
+        add_visitor wat
         case format
           when 'xml'  then wat.to_xml  :exclude => [:ip], :methods => [:n_votes, :n_visitors]
           when 'csv'  then wat.to_csv  :exclude => [:ip], :methods => [:n_votes, :n_visitors]
@@ -111,9 +111,14 @@ class Quotone
       keyword      = "#{quote.source} #{quote.tags.split(/,/).take(4).join(',')}".gsub(/&#x2F;/, '/')
       url          = "http://ajax.googleapis.com/ajax/services/search/images?rsz=large&start=#{position}&v=1.0&q=#{Rack::Utils.escape_path(keyword)}"
       json_results = open(url) {|f| f.read }
-      return JSON.parse(json_results)['responseData']['results'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
+
+      begin
+        return JSON.parse(json_results)['responseData']['results'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
+      rescue
+        return ''
+      end
     end
-		
-	end
-	
+    
+  end
+  
 end
