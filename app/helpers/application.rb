@@ -115,7 +115,7 @@ class Quotone
       begin
         return JSON.parse(json_results)['responseData']['results'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
       rescue
-        return ''
+        return []
       end
     end
     
