@@ -48,5 +48,10 @@ class Quotone
     quote = Quote.get(id.to_i)
     renderize quote, format
   end
+	
+  get '/api/random.?:format?' do |format|
+    quote = Quote.all.sample
+    renderize quote, format
+  end
 
 end
