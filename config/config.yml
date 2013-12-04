@@ -2,13 +2,13 @@ admin:
   username: ambrogio
   password: hurrdurr
   token:    rfvklklfklmvlfked
-  
+
 database:
   hostname: xxx
   username: xxx
   password: xxx
   database: xxx
-  
+
 miscs:
   per_page:    5
   minify:      disable
@@ -16,4 +16,4 @@ miscs:
   cookie:      dafuq are u doing? pls stahp
   csrf:        _csrf
   excluded_ua: [ '*google*', '*yahoo*', '*bing*', '*facebook*' ]
-  description: Quotone allows you to share with the world your favorite quotes from novels, movies, anime, manga, comics, videogames and so on in a completely anonimous way without any type of registration.
+  description: Quotone allows you to share with the world your favorite quotes from novels, movies, anime, manga, comics, videogames and so on in a completely anonymous way without any type of registration.
