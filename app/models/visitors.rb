@@ -20,10 +20,10 @@
 class Visitor
   include DataMapper::Resource
 
-  property	:id,          Serial
+  property  :id,          Serial
   property  :ip,          String, :required => true
-  property	:created_at,  DateTime
-  property	:updated_at,  DateTime
+  property  :created_at,  DateTime
+  property  :updated_at,  DateTime
   belongs_to :quote
   
   def self.visited? id, ip
