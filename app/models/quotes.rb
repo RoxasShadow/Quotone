@@ -22,13 +22,13 @@ class Quote
 
   property  :id,          Serial
   property  :ip,          String,  :required => true
-  property	:source,      String,  :required => true
-  property	:tags,        Text
+  property  :source,      String,  :required => true
+  property  :tags,        Text
   property  :language,    String,  :required => true
-  property	:quote,       Text,    :required => true
+  property  :quote,       Text,    :required => true
   property  :spoiler,     Boolean, :default => false
-  property	:created_at,  DateTime
-  property	:updated_at,  DateTime
+  property  :created_at,  DateTime
+  property  :updated_at,  DateTime
   has n, :votes,    :constraint => :destroy
   has n, :visitors, :constraint => :destroy
   
@@ -37,11 +37,11 @@ class Quote
   attr_accessor :n_votes
   
   def purge
-  	self.source      = Rack::Utils.escape_html self.source.gsub(/\//, ' ').gsub(/#/, ' ')
-  	self.tags        = Rack::Utils.escape_html self.tags.gsub(/\//, ' ').gsub(/#/, ' ')
-  	self.quote       = Rack::Utils.escape_html self.quote
-  	
-  	self.created_at  = Time.now.utc + 2*60*60
+    self.source      = Rack::Utils.escape_html self.source.gsub(/\//, ' ').gsub(/#/, ' ')
+    self.tags        = Rack::Utils.escape_html self.tags.gsub(/\//, ' ').gsub(/#/, ' ')
+    self.quote       = Rack::Utils.escape_html self.quote
+    
+    self.created_at  = Time.now.utc + 2*60*60
   end
   
   def n_votes
@@ -62,6 +62,10 @@ class Quote
   
   def spoiler?
     self.spoiler
+  end
+
+  def to_ary
+    [self]
   end
   
   protected
