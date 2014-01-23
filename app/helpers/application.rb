@@ -109,13 +109,16 @@ class Quotone
       require 'json'
       require 'open3'
       
-      keyword      = "#{quote.source} #{quote.tags.split(/,/).take(4).join(',')}".gsub(/&#x2F;/, '/')
-      url          = "http://ajax.googleapis.com/ajax/services/search/images?rsz=large&start=#{position}&v=1.0&q=#{Rack::Utils.escape_path(keyword)}"
-      
-      Open3.popen3('curl', '-X', 'GET', url) { |cmd, o|
-        return JSON.parse(o.read.chomp)['responseData']['results'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
-      }
-      return []
+      keyword = "#{quote.source} #{quote.tags.split(/,/).take(4).join(',')}".gsub(/&#x2F;/, '/')
+      url     = "http://ajax.googleapis.com/ajax/services/search/images?rsz=large&start=#{position}&v=1.0&q=#{Rack::Utils.escape_path(keyword)}"
+            
+      begin
+        Open3.popen3('curl', '-X', 'GET', url) { |cmd, o|
+          return JSON.parse(o.read.chomp)['responseData']['results'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
+        }
+      rescue
+        []
+      end
     end
     
   end
