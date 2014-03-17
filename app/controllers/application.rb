@@ -25,7 +25,7 @@ class Quotone
     @current_url  = "http://#{request.env['HTTP_HOST']}#{request.env['REQUEST_URI']}"
     @domain       = "http://#{request.env['HTTP_HOST']}"
     @admin_email  = 'webmaster@giovannicapuano.net'
-    @ip           = request.ip
+    @ip           = @env['HTTP_X_FORWARDED_FOR'] || request.ip
     @useragent    = request.user_agent
   end
 	
