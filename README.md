@@ -1,10 +1,10 @@
 Quotone allows you to share with the world your favorite quotes from novels, movies, anime, manga, comics, videogames and so on in a completely anonymous way without any type of registration.
 
-Each quote has a viewer counter, can be voted and shared on Facebook, Twitter and Google+, and you can search for others that deal with the same topic through the search or the tags.
+Each quote has a counter of views, can be voted and shared on Facebook, Twitter and Google+, and you can search for others that deal with the same topic through the search or the tags.
 
 Read-only and multi-format APIs are available.
 
-Running at http://quotone.unsigned.it.
+Running at http://quotone.giovannicapuano.net.
 
 ```
 gem install bundler
