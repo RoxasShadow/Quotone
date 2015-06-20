@@ -20,43 +20,43 @@
 class Quotone
 
   helpers do
-    
+
     def csrf_token
       Rack::Csrf.csrf_token(env)
     end
-    
+
     def csrf_tag
       Rack::Csrf.csrf_tag(env)
     end
-    
+
     def admin?
       get_cookie(settings.username) == settings.token
     end
-    
+
     def only_for_admin!
       halt [ 401, 'Not Authorized' ] unless admin?
     end
-    
+
     def only_for_users!
       halt [ 401, 'Not Authorized' ] if admin?
     end
-    
+
     def owner_of?(quote)
       @ip == quote.ip && quote.created_at.today?
     end
-    
+
     def get_description
       settings.description
     end
-    
+
     def per_page
       settings.per_page
     end
-    
+
     def thumbnails?
       settings.thumbnails
     end
-    
+
     def exclude_ua?(excluded_ua, useragent)
       excluded_ua.each { |ua|
         if ua.start_with?('*') && ua.end_with?('*')
@@ -67,10 +67,10 @@ class Quotone
       }
       false
     end
-    
+
     def add_visitor(quote)
       return if exclude_ua? settings.excluded_ua, @useragent
-      
+
       if quote.is_a?(DataMapper::Collection) || quote.is_a?(Array)
         quote.each { |q|
           q.visitors.create(:ip => @ip) unless Visitor.visited? q.id, @ip
@@ -79,11 +79,11 @@ class Quotone
         quote.visitors.create(:ip => @ip) unless Visitor.visited? quote.id, @ip
       end
     end
-    
+
     def renderize(wat, format = nil)
       if wat.is_a? Symbol
         add_visitor(@quotes) if @quotes
-        
+
         if settings.minify
           require 'html_press'
           HtmlPress.press(erb wat)
@@ -102,25 +102,34 @@ class Quotone
         end
       end
     end
-    
+
     def get_thumbnail(quote, position = 0)
+      id = quote.id
+
+      @results ||= {}
+      return @results[id] if @results[id] && @results[id].length > 0
+
       require 'cgi'
       require 'open-uri'
       require 'json'
       require 'open3'
-      
-      keyword = "#{quote.source} #{quote.tags.split(/,/).take(4).join(',')}".gsub(/&#x2F;/, '/')
+
+      keyword = "#{quote.source} #{quote.tags.split(/,/).take(2).join(' ')}".gsub(/&#x2F;/, '/')
       url     = "http://ajax.googleapis.com/ajax/services/search/images?rsz=large&start=#{position}&v=1.0&q=#{Rack::Utils.escape_path(keyword)}"
-            
+
       begin
         Open3.popen3('curl', '-X', 'GET', url) { |cmd, o|
-          return JSON.parse(o.read.chomp)['responseData']['results'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
+          @results[id] = JSON.parse(o.read.chomp)['responseData']['results'] # :thumbnail => image['tbUrl'], :original => image['unescapedUrl'], :name => keyword
+          return @results[id]
         }
       rescue
-        []
+        @results[id] = []
       end
+
+      @results[id]
     end
-    
+
+
   end
-  
+
 end
